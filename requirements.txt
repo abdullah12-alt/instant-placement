@@ -1,0 +1,10 @@
+django
+django-allauth
+stripe
+celery
+redis
+python-decouple
+requests
+django-redis
+gunicorn
+psycopg2-binary

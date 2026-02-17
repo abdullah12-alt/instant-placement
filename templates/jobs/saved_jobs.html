@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block title %}Saved Jobs{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="mb-12 animate-fade-in-right">
+        <h1 class="text-4xl font-black mb-3 text-white tracking-tight">Your <span class="text-gradient">Saved
+                Jobs</span></h1>
+        <p class="text-gray-500 font-black uppercase tracking-[0.2em] text-[10px]">Manage your potential opportunities
+        </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for job in jobs %}
+        <div
+            class="glass p-8 rounded-[40px] border-[#2a2a4a] hover:border-indigo-500/40 transition-all duration-300 group flex flex-col bg-[#16162a]/40 shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/[0.03] rounded-full blur-2xl -mr-16 -mt-16">
+            </div>
+
+            <div class="flex justify-between items-start mb-8 relative z-10">
+                <span
+                    class="px-3 py-1.5 rounded-full text-[9px] font-black uppercase tracking-[0.2em] bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                    {{ job.platform|default:"PLACEMENT" }}
+                </span>
+                <span class="text-[9px] font-bold text-gray-500 uppercase tracking-wider">
+                    {{ job.saved_at|timesince }} ago
+                </span>
+            </div>
+
+            <div class="flex items-center space-x-5 mb-8 relative z-10">
+                <div
+                    class="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-black text-2xl shadow-xl group-hover:scale-110 transition-transform duration-500">
+                    {{ job.company|slice:":1"|upper }}
+                </div>
+                <div class="overflow-hidden">
+                    <p class="text-[10px] font-black text-indigo-400 tracking-[0.2em] uppercase mb-1.5">{{ job.company
+                        }}</p>
+                    <h3
+                        class="font-bold text-xl text-white truncate group-hover:text-indigo-300 transition-colors leading-tight">
+                        {{ job.title }}</h3>
+                </div>
+            </div>
+
+            <div class="mb-10 space-y-4 relative z-10">
+                <div class="flex items-center text-gray-400">
+                    <div
+                        class="w-8 h-8 rounded-xl bg-[#0f0f13]/50 flex items-center justify-center mr-3 border border-[#2a2a4a]">
+                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                    </div>
+                    <span class="text-sm font-semibold tracking-wide">{{ job.location }}</span>
+                </div>
+                <div class="flex items-center text-gray-600">
+                    <div
+                        class="w-8 h-8 rounded-xl bg-[#0f0f13]/50 flex items-center justify-center mr-3 border border-[#2a2a4a]">
+                        <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <span class="text-[10px] uppercase font-black tracking-[0.15em]">{{ job.posted_at|default:"Verified
+                        Placement" }}</span>
+                </div>
+            </div>
+
+            <div class="mt-auto pt-8 border-t border-[#2a2a4a]/50 relative z-10">
+                <a href="{{ job.url }}" target="_blank"
+                    class="w-full btn-gradient py-4 rounded-2xl text-center text-[10px] font-black uppercase tracking-[0.25em] block text-white shadow-xl shadow-indigo-600/10 hover:shadow-indigo-600/30 hover:scale-[1.03] active:scale-95 transition-all">
+                    Launch Application →
+                </a>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-span-full py-32 flex flex-col items-center text-center">
+            <div
+                class="w-32 h-32 rounded-[40px] bg-indigo-500/5 flex items-center justify-center mb-10 transform -rotate-12 group hover:rotate-0 transition-transform duration-500">
+                <span class="text-6xl opacity-40">📁</span>
+            </div>
+            <h3 class="text-3xl font-black text-white mb-4 tracking-tight">Your vault is empty</h3>
+            <p class="text-gray-500 mb-12 max-w-sm mx-auto font-medium leading-relaxed">Discover your next career move
+                and save it here with a single click.</p>
+            <a href="{% url 'home' %}"
+                class="btn-gradient px-12 py-5 rounded-2xl font-black text-[11px] uppercase tracking-[0.3em] text-white shadow-2xl shadow-indigo-600/30 hover:scale-[1.05] active:scale-95 transition-all">Explore
+                Opportunities</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

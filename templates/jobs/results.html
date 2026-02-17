@@ -1,0 +1,356 @@
+{% extends 'base.html' %}
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Results Header -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+        <div class="animate-fade-in-right">
+            <h1 class="text-3xl font-bold mb-2">Results for <span class="text-gradient">'{{ query }}'</span> in <span
+                    class="text-gradient">'{{ location }}'</span></h1>
+            <div class="flex items-center space-x-3">
+                <span
+                    class="px-3 py-1 bg-indigo-500/10 text-indigo-400 text-xs font-bold rounded-full border border-indigo-500/20 shadow-sm">
+                    {{ jobs|length }} jobs found
+                </span>
+                {% if query_k %}
+                <span class="text-xs text-gray-500 italic">Keywords: {{ query_k }}</span>
+                {% endif %}
+            </div>
+        </div>
+        {% if not user.profile.is_pro %}
+        <div
+            class="flex items-center space-x-2 text-sm text-gray-500 glass px-4 py-2 rounded-full border-indigo-500/10">
+            <span>🔒 Showing top 10 results</span>
+            <a href="{% url 'pricing' %}"
+                class="text-indigo-400 font-bold hover:text-indigo-300 transition-colors">Upgrade for more</a>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Pro Upgrade Banner -->
+    {% if not user.profile.is_pro %}
+    <div class="mb-12 glass overflow-hidden rounded-[24px] relative border-indigo-500/30 group">
+        <div
+            class="absolute inset-0 bg-gradient-to-r from-indigo-600/10 via-purple-600/10 to-indigo-600/10 group-hover:scale-110 transition-transform duration-700">
+        </div>
+        <div class="relative p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div class="flex-1">
+                <h3 class="text-2xl font-bold mb-3 flex items-center text-white">
+                    <span class="mr-3 text-3xl">⚡</span>
+                    Upgrade to Pro for Unlimited Insights
+                </h3>
+                <p class="text-gray-400 max-w-xl leading-relaxed">
+                    You're seeing a limited preview. Pro users unlock up to <span class="text-indigo-400 font-bold">100
+                        results</span>, real-time filters (1h, 8h),
+                    keyword exclusion, and daily email alerts delivered to their inbox.
+                </p>
+            </div>
+            <a href="{% url 'pricing' %}"
+                class="bg-indigo-600 hover:bg-indigo-500 text-white px-10 py-4 rounded-2xl font-bold transition-all shadow-xl shadow-indigo-600/30 hover:shadow-indigo-600/50 hover:scale-[1.02] active:scale-95 whitespace-nowrap">
+                Upgrade to Pro — $9/mo →
+            </a>
+        </div>
+        <!-- Shimmer effect -->
+        <div
+            class="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent via-white/5 to-transparent group-hover:animate-shimmer">
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="flex flex-col lg:flex-row gap-10">
+        <!-- Sidebar Filters -->
+        <aside class="w-full lg:w-80 flex-shrink-0">
+            <div class="glass p-8 rounded-[24px] sticky top-24 border-[#2a2a4a] shadow-xl">
+                <h3 class="font-bold text-xl mb-8 flex items-center justify-between text-white">
+                    Filters
+                    <svg class="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                    </svg>
+                </h3>
+
+                <form action="{% url 'search_results' %}" method="get" class="space-y-10">
+                    <input type="hidden" name="q" value="{{ query }}">
+                    <input type="hidden" name="l" value="{{ location }}">
+                    <input type="hidden" name="k" value="{{ query_k }}">
+
+                    <!-- Time Posted -->
+                    <div>
+                        <label class="block text-[11px] font-black text-gray-500 uppercase mb-5 tracking-widest">Time
+                            Posted</label>
+                        <div class="flex flex-wrap gap-2.5">
+                            <label class="cursor-pointer">
+                                <input type="radio" name="t" value="today" class="sr-only peer" {% if query_t == 'today' %}checked{% endif %}>
+                                <span
+                                    class="px-5 py-2.5 bg-[#1a1a2e] border border-[#2a2a4a] rounded-full text-[12px] font-bold text-gray-400 peer-checked:bg-white peer-checked:text-[#0f0f13] peer-checked:border-white transition-all hover:border-indigo-500/50 block">24h</span>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="radio" name="t" value="week" class="sr-only peer" {% if query_t == 'week' %}checked{% endif %}>
+                                <span
+                                    class="px-5 py-2.5 bg-[#1a1a2e] border border-[#2a2a4a] rounded-full text-[12px] font-bold text-gray-400 peer-checked:bg-white peer-checked:text-[#0f0f13] peer-checked:border-white transition-all hover:border-indigo-500/50 block">Week</span>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="radio" name="t" value="month" class="sr-only peer" {% if query_t == 'month' %}checked{% endif %}>
+                                <span
+                                    class="px-5 py-2.5 bg-[#1a1a2e] border border-[#2a2a4a] rounded-full text-[12px] font-bold text-gray-400 peer-checked:bg-white peer-checked:text-[#0f0f13] peer-checked:border-white transition-all hover:border-indigo-500/50 block">Month</span>
+                            </label>
+                        </div>
+
+                        <!-- Pro Time Filters -->
+                        <div class="mt-4 space-y-2">
+                            <label
+                                class="flex items-center justify-between p-3.5 bg-[#1a1a2e]/50 border border-[#2a2a4a] rounded-2xl group transition-all {% if user.profile.is_pro %}cursor-pointer hover:border-indigo-500{% else %}cursor-not-allowed opacity-60{% endif %}">
+                                <div class="flex items-center text-xs font-bold text-gray-300">
+                                    {% if not user.profile.is_pro %}<span class="mr-2.5">🔒</span>{% endif %}
+                                    <input type="radio" name="t" value="1h" class="sr-only peer" {% if not user.profile.is_pro %}disabled{% endif %} {% if query_t == '1h' %}checked{% endif %}>
+                                    <span class="peer-checked:text-indigo-400 transition-colors">Last 1 Hour</span>
+                                </div>
+                                <span
+                                    class="text-[9px] font-black text-indigo-500/50 group-hover:text-indigo-500 transition-colors">PRO</span>
+                            </label>
+                            <label
+                                class="flex items-center justify-between p-3.5 bg-[#1a1a2e]/50 border border-[#2a2a4a] rounded-2xl group transition-all {% if user.profile.is_pro %}cursor-pointer hover:border-indigo-500{% else %}cursor-not-allowed opacity-60{% endif %}">
+                                <div class="flex items-center text-xs font-bold text-gray-300">
+                                    {% if not user.profile.is_pro %}<span class="mr-2.5">🔒</span>{% endif %}
+                                    <input type="radio" name="t" value="8h" class="sr-only peer" {% if not user.profile.is_pro %}disabled{% endif %} {% if query_t == '8h' %}checked{% endif %}>
+                                    <span class="peer-checked:text-indigo-400 transition-colors">Last 8 Hours</span>
+                                </div>
+                                <span
+                                    class="text-[9px] font-black text-indigo-500/50 group-hover:text-indigo-500 transition-colors">PRO</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Job Type -->
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <label class="text-[11px] font-black text-gray-500 uppercase tracking-widest">Remote
+                                Only</label>
+                            {% if not user.profile.is_pro %}
+                            <span
+                                class="text-[9px] bg-indigo-500/20 text-indigo-400 px-2 py-0.5 rounded-md font-black uppercase">Pro</span>
+                            {% endif %}
+                        </div>
+                        <label
+                            class="relative inline-flex items-center {% if not user.profile.is_pro %}cursor-not-allowed opacity-50{% else %}cursor-pointer{% endif %}">
+                            <input type="checkbox" name="remote" value="true" class="sr-only peer" {% if not user.profile.is_pro %}disabled{% endif %} {% if query_remote %}checked{% endif %}>
+                            <div
+                                class="w-12 h-6.5 bg-gray-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5.5 after:w-5.5 after:transition-all peer-checked:bg-indigo-600">
+                            </div>
+                        </label>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full btn-gradient py-4 rounded-2xl font-black text-xs uppercase tracking-widest shadow-lg shadow-indigo-500/20">
+                        Apply Filters
+                    </button>
+                </form>
+
+                {% if user.profile.is_pro %}
+                <div class="mt-8 pt-8 border-t border-[#2a2a4a]">
+                    <button onclick="saveSearch()"
+                        class="w-full glass border-indigo-500/30 text-indigo-400 py-3 rounded-2xl text-[11px] font-black uppercase tracking-widest hover:bg-indigo-500/10 transition-all">
+                        Save This Search
+                    </button>
+                </div>
+                {% endif %}
+            </div>
+        </aside>
+
+        <!-- Jobs Grid -->
+        <div class="flex-grow">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-7">
+                {% for job in jobs %}
+                <div
+                    class="glass p-7 rounded-[28px] border-[#2a2a4a] hover:border-indigo-500/50 hover:shadow-2xl hover:shadow-indigo-500/5 hover:-translate-y-1.5 transition-all duration-300 group flex flex-col h-full bg-[#16162a]/40">
+                    <div class="flex justify-between items-start mb-6">
+                        <span
+                            class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border
+                                {% if 'linkedin' in job.job_publisher|lower %}bg-blue-500/10 text-blue-400 border-blue-500/20{% elif 'indeed' in job.job_publisher|lower %}bg-red-500/10 text-red-400 border-red-500/20{% elif 'glassdoor' in job.job_publisher|lower %}bg-green-500/10 text-green-400 border-green-500/20{% else %}bg-indigo-500/10 text-indigo-400 border-indigo-500/20{% endif %}">
+                            {{ job.job_publisher|default:"Instant Placement" }}
+                        </span>
+                        <span class="text-[10px] font-bold text-gray-500 uppercase tracking-tight">
+                            {{ job.job_posted_at_datetime_utc|slice:":10"|default:"Recently" }}
+                        </span>
+                    </div>
+
+                    <div class="flex items-center space-x-5 mb-6">
+                        <div
+                            class="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-black text-xl flex-shrink-0 shadow-lg group-hover:rotate-3 transition-transform">
+                            {{ job.employer_name|slice:":1"|upper }}
+                        </div>
+                        <div class="overflow-hidden">
+                            <p class="text-[11px] font-black text-indigo-400 tracking-widest uppercase mb-1">{{ job.employer_name }}</p>
+                            <h3
+                                class="font-bold text-xl text-white group-hover:text-indigo-300 transition-colors truncate">
+                                {{ job.job_title }}</h3>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 mb-8 flex-grow">
+                        <div class="flex items-center text-gray-400">
+                            <div class="w-8 h-8 rounded-lg bg-gray-800/50 flex items-center justify-center mr-3">
+                                <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            </div>
+                            <span class="text-sm font-medium">{{ job.job_city|default:job.job_country }}</span>
+                        </div>
+                        {% if job.job_min_salary %}
+                        <div
+                            class="flex items-center text-green-400/90 bg-green-400/5 p-3 rounded-2xl border border-green-400/10">
+                            <div class="w-8 h-8 rounded-lg bg-green-400/10 flex items-center justify-center mr-3">
+                                <span class="text-sm font-bold">$</span>
+                            </div>
+                            <span class="text-sm font-bold tracking-tight">
+                                ${{ job.job_min_salary|floatformat:0 }} - ${{ job.job_max_salary|floatformat:0 }} / yr
+                            </span>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="border-t border-[#2a2a4a]/50 pt-5 flex gap-4 mt-auto">
+                        <a href="{{ job.job_apply_link }}" target="_blank"
+                            class="flex-grow btn-gradient py-3.5 rounded-2xl text-center text-xs font-black uppercase tracking-widest shadow-lg shadow-indigo-600/10 hover:shadow-indigo-600/30">
+                            Apply Now →
+                        </a>
+                        <button
+                            onclick="saveJob('{{ job.job_id }}', '{{ job.job_title|escapejs }}', '{{ job.employer_name|escapejs }}', '{{ job.job_city|escapejs }}', '{{ job.job_apply_link|escapejs }}', '{{ job.job_publisher|escapejs }}')"
+                            class="w-12 h-12 glass rounded-2xl flex items-center justify-center hover:bg-white/5 hover:border-indigo-500 transition-all group/save">
+                            <svg class="w-5 h-5 text-gray-400 group-hover/save:text-pink-500 group-hover/save:scale-125 transition-all"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-span-full py-24 flex flex-col items-center text-center max-w-lg mx-auto">
+                    <div
+                        class="w-24 h-24 rounded-full bg-indigo-500/10 flex items-center justify-center mb-8 animate-bounce">
+                        <span class="text-5xl">🔭</span>
+                    </div>
+                    <h3 class="text-3xl font-bold mb-4 text-white">No jobs found for your search</h3>
+                    <p class="text-gray-400 mb-10 leading-relaxed">It seems we couldn't find any results matching your
+                        criteria. Try adjusting your filters or using different keywords.</p>
+                    <a href="{% url 'home' %}"
+                        class="btn-gradient px-10 py-4 rounded-2xl font-black text-xs uppercase tracking-widest">Start
+                        New Search</a>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Pagination (Placeholder) -->
+            {% if jobs|length >= 10 %}
+            <div class="mt-16 flex justify-center">
+                <div class="glass flex items-center p-1.5 rounded-2xl border-[#2a2a4a]">
+                    <button
+                        class="px-5 py-2.5 rounded-xl text-xs font-black text-gray-500 hover:text-white transition-colors">Prev</button>
+                    <div
+                        class="px-6 py-2.5 bg-indigo-600 rounded-xl text-xs font-black text-white shadow-lg shadow-indigo-600/30">
+                        1</div>
+                    <button
+                        class="px-5 py-2.5 rounded-xl text-xs font-black text-gray-500 hover:text-white transition-colors">Next</button>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+    function saveJob(id, title, company, loc, url, platform) {
+        {% if not user.is_authenticated %}
+        const currentPath = window.location.pathname + window.location.search;
+        window.location.href = "{% url 'account_login' %}?next=" + encodeURIComponent(currentPath);
+        return;
+        {% endif %}
+
+        fetch("{% url 'save_job_ajax' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({
+                job_id: id,
+                title: title,
+                company: company,
+                location: loc,
+                url: url,
+                platform: platform
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    showToast('Success', 'Job saved to your profile!', 'success');
+                } else {
+                    showToast('Error', data.message, 'error');
+                }
+            });
+    }
+
+    function saveSearch() {
+        const urlParams = new URLSearchParams(window.location.search);
+        fetch("{% url 'save_search_ajax' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({
+                query: urlParams.get('q'),
+                location: urlParams.get('l'),
+                keywords: urlParams.get('k'),
+                remote_only: urlParams.get('remote') === 'true'
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    showToast('Success', 'Search alert created!', 'success');
+                } else {
+                    showToast('Error', data.message, 'error');
+                }
+            });
+    }
+
+    function showToast(title, message, type) {
+        const container = document.getElementById('toast-container') || createToastContainer();
+        const toast = document.createElement('div');
+        toast.className = `toast glass border-l-4 p-4 rounded-lg shadow-2xl animate-fade-in-right ${type === 'success' ? 'border-green-500' : type === 'error' ? 'border-red-500' : 'border-indigo-500'
+            }`;
+        toast.style.minWidth = '300px';
+        toast.innerHTML = `
+            <div class="flex items-center justify-between gap-4">
+                <div>
+                    <p class="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-1">${title}</p>
+                    <p class="text-sm font-medium text-white">${message}</p>
+                </div>
+                <span class="text-xl">${type === 'success' ? '✅' : type === 'error' ? '❌' : '🔔'}</span>
+            </div>
+        `;
+        container.appendChild(toast);
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => toast.remove(), 500);
+        }, 4000);
+    }
+
+    function createToastContainer() {
+        const container = document.createElement('div');
+        container.id = 'toast-container';
+        container.className = 'fixed top-20 right-4 z-[100] flex flex-col space-y-2';
+        document.body.appendChild(container);
+        return container;
+    }
+</script>
+{% endblock %}

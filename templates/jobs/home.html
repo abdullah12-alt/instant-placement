@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="relative min-h-[calc(100vh-64px)] flex flex-col items-center justify-center px-4 overflow-hidden py-12">
+    <!-- Animated Blob Background -->
+    <div
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-[120px] -z-10 animate-pulse">
+    </div>
+
+    <!-- Hero Section -->
+    <div class="text-center max-w-4xl mx-auto mb-12">
+        <div
+            class="inline-flex items-center px-4 py-1.5 rounded-full glass border-indigo-500/30 text-xs font-bold text-indigo-400 mb-6 tracking-wide">
+            🚀 Powered by Real-Time Job Data
+        </div>
+        <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-6">
+            Find Your Next Job<br>
+            <span class="text-gradient">Instantly.</span>
+        </h1>
+        <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
+            Search LinkedIn, Indeed, Glassdoor & more — all in one place.<br class="hidden md:block">
+            No tabs. No wasted time. Just results.
+        </p>
+    </div>
+
+    <!-- Floating Search Card -->
+    <div
+        class="w-full max-w-3xl glass p-8 rounded-[16px] border-indigo-500/20 shadow-2xl shadow-indigo-500/10 relative z-10 transition-all duration-500 hover:shadow-indigo-500/20">
+        <form action="{% url 'search_results' %}" method="get">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <!-- Job Title -->
+                <div class="relative">
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-2 ml-1">Job Title</label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">💼</span>
+                        <input type="text" name="q" placeholder="e.g. React Developer" required
+                            class="w-full bg-[#1a1a2e] border border-[#2a2a4a] rounded-[8px] py-3 pl-10 pr-4 text-white placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
+                    </div>
+                </div>
+                <!-- Location -->
+                <div class="relative">
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-2 ml-1">Location</label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">📍</span>
+                        <input type="text" name="l" placeholder="e.g. New York or Remote" required
+                            class="w-full bg-[#1a1a2e] border border-[#2a2a4a] rounded-[8px] py-3 pl-10 pr-4 text-white placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
+                    </div>
+                </div>
+                <!-- Keywords -->
+                <div class="relative">
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-2 ml-1">Keywords</label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">🏷️</span>
+                        <input type="text" name="k" placeholder="e.g. Python, Django (optional)"
+                            class="w-full bg-[#1a1a2e] border border-[#2a2a4a] rounded-[8px] py-3 pl-10 pr-4 text-white placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
+                    </div>
+                </div>
+                <!-- Time Filter -->
+                <div class="relative">
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-2 ml-1">Time Filter</label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">🕒</span>
+                        <select name="t"
+                            class="w-full bg-[#1a1a2e] border border-[#2a2a4a] rounded-[8px] py-3 pl-10 pr-4 text-white appearance-none focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all cursor-pointer">
+                            <option value="today">Last 24 hours</option>
+                            <option value="week">Last week</option>
+                            <option value="month">Last month</option>
+                            {% if user.is_authenticated and user.profile.is_pro %}
+                            <option value="1h">Last 1 hour</option>
+                            <option value="8h">Last 8 hours</option>
+                            {% else %}
+                            <option disabled class="text-gray-500">Last 1 hour (PRO)</option>
+                            <option disabled class="text-gray-500">Last 8 hours (PRO)</option>
+                            {% endif %}
+                        </select>
+                        <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500">
+                            <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20">
+                                <path
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Remote Only Toggle -->
+            <div class="flex items-center justify-end space-x-3 mb-8">
+                <span class="text-sm font-medium text-gray-400 flex items-center">
+                    {% if not user.profile.is_pro %}<span class="mr-2 opacity-70">🔒</span>{% endif %}
+                    Remote Only
+                    {% if not user.profile.is_pro %}<span class="ml-2 px-1.5 py-0.5 text-[10px] bg-indigo-500/20 text-indigo-400 rounded-md font-bold">PRO</span>{% endif %}
+                </span>
+                <label
+                    class="relative inline-flex items-center {% if not user.profile.is_pro %}cursor-not-allowed opacity-50{% else %}cursor-pointer{% endif %}">
+                    <input type="checkbox" name="remote" value="true" class="sr-only peer" {% if not user.profile.is_pro %}disabled{% endif %}>
+                    <div
+                        class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600">
+                    </div>
+                </label>
+            </div>
+
+            <button type="submit"
+                class="w-full btn-gradient py-4 rounded-[12px] font-bold text-lg flex items-center justify-center space-x-2 shadow-xl shadow-indigo-600/20">
+                <span>Search Jobs Instantly</span>
+                <span>🚀</span>
+            </button>
+        </form>
+    </div>
+
+    <!-- Trust Bar -->
+    <div class="mt-12 flex flex-col items-center">
+        <span class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4">Searching across</span>
+        <div class="flex flex-wrap justify-center gap-4">
+            <span
+                class="px-4 py-1.5 rounded-full glass border-blue-500/30 text-xs font-bold text-blue-400">LinkedIn</span>
+            <span class="px-4 py-1.5 rounded-full glass border-red-500/30 text-xs font-bold text-red-400">Indeed</span>
+            <span
+                class="px-4 py-1.5 rounded-full glass border-green-500/30 text-xs font-bold text-green-400">Glassdoor</span>
+            <span
+                class="px-4 py-1.5 rounded-full glass border-orange-500/30 text-xs font-bold text-orange-400">ZipRecruiter</span>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-5xl px-4">
+        <div class="glass p-6 rounded-[16px] hover:translate-y-[-4px] transition-all duration-300 group cursor-default">
+            <div
+                class="w-12 h-12 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                ⚡</div>
+            <h3 class="font-bold text-lg mb-2">Real-Time Results</h3>
+            <p class="text-gray-400 text-sm">Jobs posted as recently as the last hour at your fingertips.</p>
+        </div>
+        <div class="glass p-6 rounded-[16px] hover:translate-y-[-4px] transition-all duration-300 group cursor-default">
+            <div
+                class="w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                🌐</div>
+            <h3 class="font-bold text-lg mb-2">Multi-Platform</h3>
+            <p class="text-gray-400 text-sm">One search, every major job board. No more tab hopping.</p>
+        </div>
+        <div class="glass p-6 rounded-[16px] hover:translate-y-[-4px] transition-all duration-300 group cursor-default">
+            <div
+                class="w-12 h-12 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                🔔</div>
+            <h3 class="font-bold text-lg mb-2">Smart Alerts</h3>
+            <p class="text-gray-400 text-sm">Daily digest to your inbox of matching jobs. (Pro Only)</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

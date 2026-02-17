@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+{% block title %}My Profile{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <!-- Profile Header Card -->
+    <div
+        class="glass p-10 md:p-14 rounded-[40px] border-[#2a2a4a] mb-12 shadow-2xl relative overflow-hidden bg-[#16162a]/40">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-indigo-500/5 rounded-full blur-3xl -z-10 -mr-20 -mt-20"></div>
+
+        <div class="flex flex-col md:flex-row items-center md:items-start gap-10">
+            <div
+                class="w-36 h-36 rounded-3xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-5xl font-black shadow-[0_20px_50px_rgba(99,102,241,0.3)] ring-1 ring-white/10 group transform transition-transform hover:rotate-3">
+                {{ user.email|slice:":1"|upper }}
+            </div>
+            <div class="flex-grow text-center md:text-left">
+                <div class="flex flex-col md:flex-row md:items-center gap-4 mb-3 justify-center md:justify-start">
+                    <h1 class="text-4xl font-black text-white tracking-tight">{{ user.username|default:user.email }}
+                    </h1>
+                    {% if user.profile.is_pro %}
+                    <span
+                        class="inline-flex px-4 py-1.5 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full text-[11px] font-black uppercase tracking-[0.2em] text-white shadow-xl shadow-indigo-600/20 border border-white/10">Pro
+                        Member</span>
+                    {% else %}
+                    <span
+                        class="inline-flex px-4 py-1.5 bg-[#2a2a4a] rounded-full text-[11px] font-black uppercase tracking-[0.2em] text-gray-400 border border-white/5">Free
+                        Tier</span>
+                    {% endif %}
+                </div>
+                <p class="text-gray-400 text-lg mb-8 font-medium">{{ user.email }}</p>
+                <div class="flex flex-wrap gap-5 justify-center md:justify-start">
+                    <div
+                        class="glass px-8 py-4 rounded-3xl border-[#2a2a4a] text-center min-w-[140px] hover:border-indigo-500/30 transition-colors">
+                        <p class="text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2">Saved Jobs</p>
+                        <p class="text-2xl font-black text-white">{{ user.saved_jobs.count }}</p>
+                    </div>
+                    <div
+                        class="glass px-8 py-4 rounded-3xl border-[#2a2a4a] text-center min-w-[140px] hover:border-indigo-500/30 transition-colors">
+                        <p class="text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2">Alerts</p>
+                        <p class="text-2xl font-black text-white">{{ user.saved_searches.count }}</p>
+                    </div>
+                    <div
+                        class="glass px-8 py-4 rounded-3xl border-[#2a2a4a] text-center min-w-[140px] hover:border-indigo-500/30 transition-colors">
+                        <p class="text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2">Since</p>
+                        <p class="text-2xl font-black text-white">{{ user.date_joined|date:"M Y" }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col gap-4 w-full md:w-auto">
+                {% if user.profile.is_pro %}
+                <a href="{% url 'stripe_manage' %}"
+                    class="px-8 py-4 rounded-2xl text-[11px] font-black uppercase tracking-widest border border-indigo-500/30 text-indigo-400 hover:bg-indigo-500/10 transition-all text-center">Manage
+                    Billing</a>
+                {% else %}
+                <a href="{% url 'pricing' %}"
+                    class="btn-gradient px-10 py-4 rounded-2xl text-[11px] font-black uppercase tracking-widest shadow-2xl shadow-indigo-600/30 text-center hover:scale-[1.03] active:scale-95">Upgrade
+                    to Pro →</a>
+                {% endif %}
+                <form method="post" action="{% url 'account_logout' %}" class="w-full">
+                    {% csrf_token %}
+                    <button type="submit"
+                        class="w-full px-8 py-4 rounded-2xl text-[11px] font-black uppercase tracking-widest border border-red-500/30 text-red-500 hover:bg-red-500/10 transition-all">Sign
+                        Out</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- Recent Saved Jobs -->
+        <div class="space-y-8 animate-fade-in-right">
+            <div class="flex items-center justify-between pb-4 border-b border-[#2a2a4a]">
+                <h3 class="text-2xl font-black tracking-tight text-white flex items-center">
+                    <span class="mr-4 text-3xl">📁</span> Saved Jobs
+                </h3>
+                <a href="{% url 'saved_jobs' %}"
+                    class="text-[10px] font-black text-indigo-400 hover:text-indigo-300 uppercase tracking-[0.2em] transition-colors">View
+                    All →</a>
+            </div>
+            <div class="space-y-5">
+                {% for job in recent_jobs %}
+                <div
+                    class="glass p-6 rounded-3xl border-[#2a2a4a] hover:border-indigo-500/40 transition-all group flex items-center justify-between bg-[#1a1a2e]/50">
+                    <div class="flex items-center space-x-5">
+                        <div
+                            class="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 font-black text-lg border border-indigo-500/10">
+                            {{ job.company|slice:":1"|upper }}
+                        </div>
+                        <div class="overflow-hidden max-w-[200px] md:max-w-xs">
+                            <h4 class="font-bold text-white group-hover:text-indigo-400 transition-colors truncate">{{
+                                job.title }}</h4>
+                            <p class="text-xs text-gray-500 font-bold uppercase tracking-wide">{{ job.company }} • {{
+                                job.location }}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <a href="{{ job.url }}" target="_blank"
+                            class="w-10 h-10 rounded-xl bg-[#0f0f13] flex items-center justify-center text-gray-500 hover:text-white hover:bg-indigo-600 transition-all shadow-lg border border-[#2a2a4a]">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                {% empty %}
+                <div
+                    class="py-16 flex flex-col items-center glass rounded-3xl border-dashed border-[#2a2a4a] text-center">
+                    <div class="text-4xl mb-4 opacity-30">📂</div>
+                    <p class="text-gray-500 font-bold text-xs uppercase tracking-widest">No jobs saved yet</p>
+                    <a href="{% url 'home' %}"
+                        class="mt-4 text-indigo-400 text-xs font-black uppercase hover:underline">Start Searching</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Saved Searches (Pro) -->
+        <div class="space-y-8 animate-fade-in-right" style="animation-delay: 0.1s">
+            <div class="flex items-center justify-between pb-4 border-b border-[#2a2a4a]">
+                <h3 class="text-2xl font-black tracking-tight text-white flex items-center">
+                    <span class="mr-4 text-3xl">🔍</span> Job Alerts
+                    {% if not user.profile.is_pro %}<span
+                        class="ml-4 px-2.5 py-1 bg-indigo-500/10 text-indigo-500 text-[9px] font-black rounded-lg border border-indigo-500/20 uppercase tracking-widest">Pro
+                        Only</span>{% endif %}
+                </h3>
+            </div>
+            {% if user.profile.is_pro %}
+            <div class="space-y-5">
+                {% for search in user.saved_searches.all %}
+                <div
+                    class="glass p-7 rounded-[32px] border-[#2a2a4a] hover:border-indigo-500/40 transition-all group bg-[#1a1a2e]/50">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h4
+                                class="font-black text-lg text-white group-hover:text-indigo-400 transition-colors uppercase tracking-wide">
+                                {{ search.query }}</h4>
+                            <p class="text-xs text-gray-500 font-bold tracking-tight mt-1">{{ search.location }}{% if
+                                search.keywords %} • keywords: {{ search.keywords }}{% endif %}</p>
+                        </div>
+                        <div class="flex flex-col items-end">
+                            <span
+                                class="flex items-center text-[10px] font-black text-green-500 uppercase tracking-widest mb-1">
+                                <span class="w-1.5 h-1.5 bg-green-500 rounded-full mr-2 animate-pulse"></span>
+                                Active
+                            </span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between mt-8 pt-6 border-t border-[#2a2a4a]/50">
+                        <span class="text-[9px] font-black text-gray-600 uppercase tracking-[0.15em]">Last: {{
+                            search.last_sent_at|date:"M d, H:i" }}</span>
+                        <div class="flex space-x-4">
+                            <a href="{% url 'delete_search' search.id %}"
+                                class="text-[9px] font-black text-gray-700 hover:text-red-500 uppercase tracking-widest transition-colors">Delete</a>
+                            <a href="{% url 'search_results' %}?q={{ search.query }}&l={{ search.location }}&k={{ search.keywords|default:'' }}"
+                                class="text-[10px] font-black text-indigo-400 hover:text-white uppercase tracking-[0.2em] transition-colors">Run
+                                Now →</a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div
+                    class="py-16 flex flex-col items-center glass rounded-3xl border-dashed border-[#2a2a4a] text-center">
+                    <div class="text-4xl mb-4 opacity-30">🔔</div>
+                    <p class="text-gray-500 font-bold text-xs uppercase tracking-widest">No active alerts</p>
+                </div>
+                {% endfor %}
+
+                {% if user.saved_searches.count < 5 %} <p
+                    class="text-[10px] text-gray-600 font-bold text-center uppercase tracking-widest">You can save {{
+                    5|add:user.saved_searches.count|add:"-5"|default:"up to 5" }} more searches</p>
+                    {% endif %}
+            </div>
+            {% else %}
+            <div
+                class="glass p-12 rounded-[40px] border-dashed border-indigo-500/20 flex flex-col items-center text-center bg-indigo-500/[0.02] group hover:bg-indigo-500/[0.04] transition-all duration-500">
+                <div
+                    class="w-20 h-20 rounded-3xl bg-indigo-500/5 flex items-center justify-center text-4xl mb-8 group-hover:scale-110 transition-transform duration-500">
+                    <span class="opacity-50">🔔</span>
+                </div>
+                <h4 class="font-black text-xl text-white mb-4 tracking-tight">Unlock Daily Email Digests</h4>
+                <p class="text-sm font-medium text-gray-500 mb-10 max-w-xs mx-auto leading-relaxed">Save up to 5 custom
+                    searches and receive a beautifully curated digest of new matches every morning at 8 AM.</p>
+                <a href="{% url 'pricing' %}"
+                    class="px-10 py-4 bg-indigo-600/10 text-indigo-400 border border-indigo-500/30 rounded-2xl text-[11px] font-black uppercase tracking-[0.2em] hover:bg-indigo-600 hover:text-white transition-all shadow-xl shadow-indigo-600/10">Upgrade
+                    to Pro</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

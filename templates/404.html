@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}404 - Not Found{% endblock %}
+
+{% block content %}
+<div class="min-h-[calc(100vh-128px)] flex flex-col items-center justify-center px-4 text-center">
+    <div class="mb-12 animate-bounce">
+        <span class="text-[120px]">🚀</span>
+    </div>
+    <h1 class="text-4xl md:text-6xl font-black mb-4 text-white">Houston, we have a problem.</h1>
+    <p class="text-gray-400 text-lg md:text-xl mb-12 max-w-lg mx-auto font-medium">This page doesn't exist. It might
+        have moved or orbitally decayed.</p>
+    <a href="{% url 'home' %}"
+        class="btn-gradient px-12 py-5 rounded-2xl font-black text-xs uppercase tracking-[0.3em] text-white shadow-2xl shadow-indigo-600/30 hover:scale-[1.05] transition-all">Back
+        to Home</a>
+</div>
+{% endblock %}
