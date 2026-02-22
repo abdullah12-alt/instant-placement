@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}Pricing{% endblock %}
 
 {% block content %}
@@ -27,58 +28,30 @@
                 <li class="flex items-center text-sm font-bold text-gray-400">
                     <div
                         class="w-6 h-6 rounded-full bg-green-500/10 flex items-center justify-center mr-4 flex-shrink-0">
-                        <svg class="w-3 h-3 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
-                        </svg>
+                        <i data-lucide="check" class="w-3 h-3 text-green-500"></i>
                     </div>
                     Search across all platforms
                 </li>
                 <li class="flex items-center text-sm font-bold text-gray-400">
                     <div
                         class="w-6 h-6 rounded-full bg-green-500/10 flex items-center justify-center mr-4 flex-shrink-0">
-                        <svg class="w-3 h-3 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
-                        </svg>
+                        <i data-lucide="check" class="w-3 h-3 text-green-500"></i>
                     </div>
                     10 results per search
                 </li>
                 <li class="flex items-center text-sm font-bold text-gray-400">
                     <div
                         class="w-6 h-6 rounded-full bg-green-500/10 flex items-center justify-center mr-4 flex-shrink-0">
-                        <svg class="w-3 h-3 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
-                        </svg>
+                        <i data-lucide="check" class="w-3 h-3 text-green-500"></i>
                     </div>
                     24h / Week / Month filters
                 </li>
                 <li class="flex items-center text-sm font-bold text-gray-400">
                     <div
                         class="w-6 h-6 rounded-full bg-green-500/10 flex items-center justify-center mr-4 flex-shrink-0">
-                        <svg class="w-3 h-3 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
-                        </svg>
+                        <i data-lucide="check" class="w-3 h-3 text-green-500"></i>
                     </div>
                     Save up to 5 jobs
-                </li>
-                <li
-                    class="flex items-center text-sm font-bold text-gray-600/60 transition-colors group-hover:text-gray-600">
-                    <div class="w-6 h-6 rounded-full bg-gray-600/5 flex items-center justify-center mr-4 flex-shrink-0">
-                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
-                                d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </div>
-                    Real-time filters (1h, 8h)
-                </li>
-                <li
-                    class="flex items-center text-sm font-bold text-gray-600/60 transition-colors group-hover:text-gray-600">
-                    <div class="w-6 h-6 rounded-full bg-gray-600/5 flex items-center justify-center mr-4 flex-shrink-0">
-                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
-                                d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </div>
-                    Unlimited results
                 </li>
             </ul>
             <a href="{% url 'account_signup' %}"
@@ -105,62 +78,65 @@
                 <li class="flex items-center text-sm font-bold text-white">
                     <div
                         class="w-7 h-7 rounded-full bg-indigo-500/20 flex items-center justify-center mr-4 flex-shrink-0">
-                        <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7" />
-                        </svg>
+                        <i data-lucide="check" class="w-3.5 h-3.5 text-indigo-400"></i>
                     </div>
                     Everything in Free
                 </li>
                 <li class="flex items-center text-sm font-bold text-white">
                     <div
                         class="w-7 h-7 rounded-full bg-indigo-500/20 flex items-center justify-center mr-4 flex-shrink-0">
-                        <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7" />
-                        </svg>
+                        <i data-lucide="zap" class="w-3.5 h-3.5 text-indigo-400"></i>
                     </div>
                     Real-time 1h & 8h filters
                 </li>
                 <li class="flex items-center text-sm font-bold text-white">
                     <div
                         class="w-7 h-7 rounded-full bg-indigo-500/20 flex items-center justify-center mr-4 flex-shrink-0">
-                        <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7" />
-                        </svg>
+                        <i data-lucide="infinity" class="w-3.5 h-3.5 text-indigo-400"></i>
                     </div>
                     Unlimited search results
                 </li>
                 <li class="flex items-center text-sm font-bold text-white">
                     <div
                         class="w-7 h-7 rounded-full bg-indigo-500/20 flex items-center justify-center mr-4 flex-shrink-0">
-                        <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7" />
-                        </svg>
+                        <i data-lucide="folder-heart" class="w-3.5 h-3.5 text-indigo-400"></i>
                     </div>
                     Save unlimited jobs
                 </li>
                 <li class="flex items-center text-sm font-bold text-white">
                     <div
                         class="w-7 h-7 rounded-full bg-indigo-500/20 flex items-center justify-center mr-4 flex-shrink-0">
-                        <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7" />
-                        </svg>
+                        <i data-lucide="filter" class="w-3.5 h-3.5 text-indigo-400"></i>
                     </div>
                     Keyword exclusion filter
                 </li>
                 <li class="flex items-center text-sm font-bold text-white">
                     <div
                         class="w-7 h-7 rounded-full bg-indigo-500/20 flex items-center justify-center mr-4 flex-shrink-0">
-                        <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7" />
-                        </svg>
+                        <i data-lucide="mail" class="w-3.5 h-3.5 text-indigo-400"></i>
                     </div>
                     Daily email job digest
                 </li>
             </ul>
-            <a href="{% url 'stripe_checkout' %}"
+
+            {% if user.is_authenticated %}
+            {% if USE_PADDLE_CHECKOUT %}
+            <button onclick="openPaddleCheckout()"
                 class="w-full py-5 btn-gradient rounded-2xl text-center text-xs font-black uppercase tracking-widest shadow-2xl shadow-indigo-600/40 hover:scale-[1.02] active:scale-95 transition-all text-white">
                 Upgrade to Pro →
+            </button>
+            {% else %}
+            <button onclick="openPromoModal()"
+                class="w-full py-5 btn-gradient rounded-2xl text-center text-xs font-black uppercase tracking-widest shadow-2xl shadow-indigo-600/40 hover:scale-[1.02] active:scale-95 transition-all text-white">
+                Enter Promo Code →
+            </button>
+            {% endif %}
+            {% else %}
+            <a href="{% url 'account_login' %}?next={% url 'pricing' %}"
+                class="w-full py-5 btn-gradient rounded-2xl text-center text-xs font-black uppercase tracking-widest shadow-2xl shadow-indigo-600/40 hover:scale-[1.02] active:scale-95 transition-all text-white">
+                Login to Upgrade →
             </a>
+            {% endif %}
 
             <!-- Shimmer effect -->
             <div
@@ -201,6 +177,30 @@
     </div>
 </div>
 
+<!-- Promo Code Modal -->
+<div id="promoModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm px-4">
+    <div class="glass p-8 w-full max-w-md rounded-[32px] border-[#2a2a4a] bg-[#1a1a2e] relative shadow-2xl relative">
+        <button onclick="closePromoModal()"
+            class="absolute top-6 right-6 text-gray-400 hover:text-white transition-colors">
+            <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+        <h3 class="text-2xl font-black text-white mb-2">Redeem Promo</h3>
+        <p class="text-sm font-medium text-gray-400 mb-6 w-full">Got a code? Enter it below to get Instant Placement Pro
+            for free.</p>
+
+        <input type="text" id="promoInput" placeholder="Enter Promo Code"
+            class="w-full bg-[#16162a]/50 border border-[#3a3a5a] text-white px-4 py-4 rounded-xl focus:outline-none focus:border-indigo-500 transition-colors uppercase font-black text-center tracking-widest mb-4">
+
+        <p id="promoError" class="text-red-400 text-xs font-bold mb-4 hidden text-center"></p>
+
+        <button onclick="submitPromoCode()"
+            class="w-full py-4 btn-gradient rounded-xl text-center text-sm font-black uppercase tracking-widest shadow-lg shadow-indigo-600/40 hover:scale-[1.02] active:scale-95 transition-all text-white flex justify-center items-center">
+            <span id="promoBtnText">Redeem Code</span>
+            <i data-lucide="loader-2" id="promoLoading" class="w-5 h-5 animate-spin hidden ml-2"></i>
+        </button>
+    </div>
+</div>
+
 <style>
     @keyframes shimmer {
         0% {
@@ -212,4 +212,104 @@
         }
     }
 </style>
+
+<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+<script type="text/javascript">
+    // Paddle v2 valid environments are 'sandbox' or 'production' (which is the default)
+    // Paddle.Environment.set('sandbox'); // Uncomment for testing with a sandbox token
+    Paddle.Initialize({
+        token: '{{ PADDLE_CLIENT_KEY }}',
+        eventCallback: function (data) {
+            if (data.name === 'checkout.completed') {
+                window.location.href = "{% url 'paddle_success' %}";
+            }
+        }
+    });
+
+    function openPaddleCheckout() {
+        Paddle.Checkout.open({
+            items: [
+                {
+                    priceId: '{{ PADDLE_PRICE_ID }}',
+                    quantity: 1
+                }
+            ],
+            customer: {
+                email: '{{ user.email }}'
+            }
+        });
+    }
+
+    function openPromoModal() {
+        document.getElementById('promoModal').classList.remove('hidden');
+        document.getElementById('promoModal').classList.add('flex');
+        document.getElementById('promoInput').value = '';
+        document.getElementById('promoError').classList.add('hidden');
+        document.getElementById('promoInput').focus();
+    }
+
+    function closePromoModal() {
+        document.getElementById('promoModal').classList.add('hidden');
+        document.getElementById('promoModal').classList.remove('flex');
+    }
+
+    function submitPromoCode() {
+        const promoCode = document.getElementById('promoInput').value.trim();
+        const errorEl = document.getElementById('promoError');
+        const btnText = document.getElementById('promoBtnText');
+        const loadingIcon = document.getElementById('promoLoading');
+
+        if (!promoCode) {
+            errorEl.innerText = 'Please enter a valid promo code.';
+            errorEl.classList.remove('hidden');
+            return;
+        }
+
+        errorEl.classList.add('hidden');
+        btnText.innerText = 'Loading...';
+        loadingIcon.classList.remove('hidden');
+
+        fetch("{% url 'apply_promo_code' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({ promo_code: promoCode })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    btnText.innerText = 'Success!';
+                    loadingIcon.classList.add('hidden');
+                    window.location.href = "{% url 'paddle_success' %}";
+                } else {
+                    btnText.innerText = 'Redeem Code';
+                    loadingIcon.classList.add('hidden');
+                    errorEl.innerText = data.message || 'Invalid promo code.';
+                    errorEl.classList.remove('hidden');
+                }
+            })
+            .catch(error => {
+                btnText.innerText = 'Redeem Code';
+                loadingIcon.classList.add('hidden');
+                errorEl.innerText = "An error occurred while validating the promo code.";
+                errorEl.classList.remove('hidden');
+            });
+    }
+
+    // Close modal on click outside
+    document.getElementById('promoModal').addEventListener('click', function (e) {
+        if (e.target === this) {
+            closePromoModal();
+        }
+    });
+
+    // Submit on Enter key
+    document.getElementById('promoInput').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            submitPromoCode();
+        }
+    });
+</script>
 {% endblock %}

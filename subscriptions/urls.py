@@ -3,9 +3,9 @@ from . import views
 
 urlpatterns = [
     path('pricing/', views.pricing, name='pricing'),
-    path('subscribe/checkout/', views.stripe_checkout, name='stripe_checkout'),
-    path('subscribe/success/', views.stripe_success, name='stripe_success'),
-    path('subscribe/cancel/', views.stripe_cancel, name='stripe_cancel'),
-    path('stripe/webhook/', views.stripe_webhook, name='stripe_webhook'),
-    path('stripe/manage/', views.stripe_manage, name='stripe_manage'),
+    path('subscribe/apply-promo/', views.apply_promo_code, name='apply_promo_code'),
+    path('subscribe/paddle-checkout/', views.paddle_checkout, name='paddle_checkout'),
+    path('subscribe/success/', views.paddle_success, name='paddle_success'),
+    path('subscribe/cancel/', views.paddle_cancel, name='paddle_cancel'),
+    path('paddle/webhook/', views.paddle_webhook, name='paddle_webhook'),
 ]

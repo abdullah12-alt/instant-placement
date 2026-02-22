@@ -6,8 +6,8 @@ from django.dispatch import receiver
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     is_pro = models.BooleanField(default=False)
-    stripe_customer_id = models.CharField(max_length=255, blank=True, null=True)
-    stripe_subscription_id = models.CharField(max_length=255, blank=True, null=True)
+    paddle_customer_id = models.CharField(max_length=255, blank=True, null=True)
+    paddle_subscription_id = models.CharField(max_length=255, blank=True, null=True)
     subscription_end_date = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):

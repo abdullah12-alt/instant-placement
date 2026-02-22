@@ -19,7 +19,7 @@ Instant Placement is a premium job aggregator SaaS that allows users to search a
 - **Frontend:** Django Templates + Tailwind CSS + Vanilla JS
 - **Database:** SQLite
 - **Auth:** Django Auth + Allauth (Google OAuth)
-- **Payments:** Stripe
+- **Payments:** Paddle
 - **Tasks:** Celery + Redis
 - **Caching:** Redis
 
@@ -36,9 +36,9 @@ Create a `.env` file in the root directory:
 SECRET_KEY=...
 DEBUG=True
 RAPIDAPI_KEY=...
-STRIPE_SECRET_KEY=...
-STRIPE_WEBHOOK_SECRET=...
-STRIPE_PRICE_ID=...
+PADDLE_API_SECRET=...
+PADDLE_CLIENT_KEY=...
+PADDLE_PRICE_ID=...
 REDIS_URL=redis://127.0.0.1:6379/1
 EMAIL_HOST=smtp-relay.brevo.com
 EMAIL_PORT=587
@@ -65,10 +65,8 @@ celery -A config worker --loglevel=info
 celery -A config beat --loglevel=info
 ```
 
-### 6. Stripe Webhook
-```bash
-stripe listen --forward-to localhost:8000/stripe/webhook/
-```
+### 6. Paddle Webhook
+The webhook endpoint is `/paddle/webhook/`. Ensure you configure your Paddle dashboard to point to your live domain's webhook URL.
 
 ## URL Structure
 - `/` - Home
@@ -76,7 +74,7 @@ stripe listen --forward-to localhost:8000/stripe/webhook/
 - `/pricing/` - Pricing plans
 - `/accounts/profile/` - User dashboard
 - `/alerts/` - Saved searches (Pro)
-- `/subscribe/checkout/` - Stripe payment
+- `/subscribe/paddle-checkout/` - Paddle payment redirect
 
 ---
 Developed by Antigravity AI
