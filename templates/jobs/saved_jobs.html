@@ -12,10 +12,10 @@
         </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="jobs-grid">
         {% for job in jobs %}
-        <div
-            class="glass p-8 rounded-[40px] border-[#2a2a4a] hover:border-indigo-500/40 transition-all duration-300 group flex flex-col bg-[#16162a]/40 shadow-2xl relative overflow-hidden">
+        <div class="job-card glass p-8 rounded-[40px] border-[#2a2a4a] hover:border-indigo-500/40 transition-all duration-300 group flex flex-col bg-[#16162a]/40 shadow-2xl relative overflow-hidden"
+            id="card-{{ job.job_id }}">
             <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/[0.03] rounded-full blur-2xl -mr-16 -mt-16">
             </div>
 
@@ -72,15 +72,24 @@
                 </div>
             </div>
 
-            <div class="mt-auto pt-8 border-t border-[#2a2a4a]/50 relative z-10">
+            <div class="mt-auto pt-8 border-t border-[#2a2a4a]/50 relative z-10 flex gap-4">
                 <a href="{{ job.url }}" target="_blank"
-                    class="w-full btn-gradient py-4 rounded-2xl text-center text-[10px] font-black uppercase tracking-[0.25em] block text-white shadow-xl shadow-indigo-600/10 hover:shadow-indigo-600/30 hover:scale-[1.03] active:scale-95 transition-all">
-                    Launch Application →
+                    class="flex-grow btn-gradient py-4 rounded-2xl text-center text-[10px] font-black uppercase tracking-[0.25em] block text-white shadow-xl shadow-indigo-600/10 hover:shadow-indigo-600/30 hover:scale-[1.03] active:scale-95 transition-all">
+                    Apply Job →
                 </a>
+                <button onclick="removeJob('{{ job.job_id }}')"
+                    class="w-14 h-14 glass rounded-2xl flex items-center justify-center hover:bg-red-500/10 hover:border-red-500/50 transition-all group/remove"
+                    title="Remove Job">
+                    <svg class="w-5 h-5 text-gray-500 group-hover/remove:text-red-500 transition-colors" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                </button>
             </div>
         </div>
         {% empty %}
-        <div class="col-span-full py-32 flex flex-col items-center text-center">
+        <div id="empty-state" class="col-span-full py-32 flex flex-col items-center text-center">
             <div
                 class="w-32 h-32 rounded-[40px] bg-indigo-500/5 flex items-center justify-center mb-10 transform -rotate-12 group hover:rotate-0 transition-transform duration-500">
                 <span class="text-6xl opacity-40">📁</span>
@@ -96,4 +105,36 @@
         {% endfor %}
     </div>
 </div>
+
+<script>
+    function removeJob(jobId) {
+        if (!confirm('Are you sure you want to remove this saved job?')) return;
+
+        fetch("{% url 'remove_job_ajax' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({
+                job_id: jobId
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    const card = document.getElementById(`card-${jobId}`);
+                    card.classList.add('scale-90', 'opacity-0');
+                    setTimeout(() => {
+                        card.remove();
+                        if (document.querySelectorAll('.job-card').length === 0) {
+                            location.reload(); // Show empty state
+                        }
+                    }, 300);
+                } else {
+                    alert(data.message);
+                }
+            });
+    }
+</script>
 {% endblock %}

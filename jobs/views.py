@@ -88,3 +88,16 @@ def save_job_ajax(request):
         else:
             return JsonResponse({'status': 'error', 'message': 'Job already saved.'})
     return JsonResponse({'status': 'error', 'message': 'Invalid request.'})
+
+@login_required
+def remove_job_ajax(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        job_id = data.get('job_id')
+        try:
+            job = SavedJob.objects.get(user=request.user, job_id=job_id)
+            job.delete()
+            return JsonResponse({'status': 'success'})
+        except SavedJob.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Job not found.'})
+    return JsonResponse({'status': 'error', 'message': 'Invalid request.'})
