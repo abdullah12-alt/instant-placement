@@ -213,8 +213,7 @@
                             {{ job.employer_name|slice:":1"|upper }}
                         </div>
                         <div class="overflow-hidden">
-                            <p class="text-[11px] font-black text-indigo-400 tracking-widest uppercase mb-1">{{
-                                job.employer_name }}</p>
+                            <p class="text-[11px] font-black text-indigo-400 tracking-widest uppercase mb-1">{{ job.employer_name|default:"Company" }}</p>
                             <h3
                                 class="font-bold text-xl text-white group-hover:text-indigo-300 transition-colors truncate">
                                 {{ job.job_title }}</h3>
@@ -244,7 +243,7 @@
                     <div class="border-t border-[#2a2a4a]/50 pt-5 flex gap-4 mt-auto">
                         <a href="{{ job.job_apply_link }}" target="_blank"
                             class="flex-grow btn-gradient py-3.5 rounded-2xl text-center text-xs font-black uppercase tracking-widest shadow-lg shadow-indigo-600/10 hover:shadow-indigo-600/30">
-                            Apply Now →
+                             Apply Now →
                         </a>
                         <button
                             onclick="saveJob('{{ job.job_id }}', '{{ job.job_title|escapejs }}', '{{ job.employer_name|escapejs }}', '{{ job.job_city|escapejs }}', '{{ job.job_apply_link|escapejs }}', '{{ job.job_publisher|escapejs }}')"

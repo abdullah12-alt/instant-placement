@@ -68,11 +68,11 @@
             <div class="mt-auto pt-8 border-t border-[#2a2a4a]/50 relative z-10 flex gap-4">
                 <a href="{{ job.url }}" target="_blank"
                     class="flex-grow btn-gradient py-4 rounded-2xl text-center text-[10px] font-black uppercase tracking-[0.25em] block text-white shadow-xl shadow-indigo-600/10 hover:shadow-indigo-600/30 hover:scale-[1.03] active:scale-95 transition-all">
-                    Apply Job →
+                    Launch Application →
                 </a>
                 <button onclick="removeJob('{{ job.job_id }}')"
                     class="w-14 h-14 glass rounded-2xl flex items-center justify-center hover:bg-red-500/10 hover:border-red-500/50 transition-all group/remove shadow-lg"
-                    title="Remove Job">
+                    title="Unsave Job">
                     <i data-lucide="trash-2"
                         class="w-5 h-5 text-gray-500 group-hover/remove:text-red-500 transition-colors"></i>
                 </button>
@@ -98,7 +98,7 @@
 
 <script>
     function removeJob(jobId) {
-        if (!confirm('Are you sure you want to remove this saved job?')) return;
+        if (!confirm('Are you sure you want to unsave this job?')) return;
 
         fetch("{% url 'remove_job_ajax' %}", {
             method: 'POST',

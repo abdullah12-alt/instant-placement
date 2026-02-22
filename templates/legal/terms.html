@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% block title %}Terms and Conditions{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 py-20">
+    <div class="text-center mb-16 animate-fade-in">
+        <div
+            class="inline-flex items-center px-4 py-1.5 rounded-full glass border-indigo-500/30 text-xs font-bold text-indigo-400 mb-6 tracking-wide">
+            Legal Agreement
+        </div>
+        <h1 class="text-4xl md:text-5xl font-black mb-6 tracking-tight text-white uppercase">
+            Terms & <span class="text-gradient">Conditions</span>
+        </h1>
+        <p class="text-gray-500 font-bold uppercase tracking-[0.2em] text-[10px]">
+            Last Updated: February 22, 2026
+        </p>
+    </div>
+
+    <div
+        class="glass p-8 md:p-12 rounded-[40px] border-[#2a2a4a] bg-[#16162a]/40 shadow-2xl relative overflow-hidden text-gray-400 space-y-10 leading-relaxed">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-indigo-500/5 rounded-full blur-[100px] -z-10 -mr-20 -mt-20">
+        </div>
+
+        <section>
+            <h2 class="text-xl font-bold text-white mb-4 flex items-center">
+                <i data-lucide="shield-check" class="w-5 h-5 mr-3 text-indigo-400"></i>
+                1. Acceptance of Terms
+            </h2>
+            <p>
+                By accessing and using Instant Placement, you agree to be bound by these Terms and Conditions. If you do
+                not agree with any part of these terms, you must not use our service. Our platform aggregates job
+                listings from various sources for your convenience.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="text-xl font-bold text-white mb-4 flex items-center">
+                <i data-lucide="user-check" class="w-5 h-5 mr-3 text-purple-400"></i>
+                2. User Accounts
+            </h2>
+            <p>
+                To access certain features like saving jobs and setting alerts, you must create an account. You are
+                responsible for maintaining the confidentiality of your account credentials and for all activities that
+                occur under your account. Pro members are entitled to additional features as described in our pricing
+                tiers.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="text-xl font-bold text-white mb-4 flex items-center">
+                <i data-lucide="database" class="w-5 h-5 mr-3 text-green-400"></i>
+                3. Service Limitations
+            </h2>
+            <p>
+                Instant Placement acts as an aggregator. We do not guarantee the accuracy, completeness, or reliability
+                of any job listings found through our service. Users are encouraged to verify job details on the
+                original employer or platform website before applying.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="text-xl font-bold text-white mb-4 flex items-center">
+                <i data-lucide="credit-card" class="w-5 h-5 mr-3 text-blue-400"></i>
+                4. Subscription & Payments
+            </h2>
+            <p>
+                Pro subscriptions are billed on a monthly basis. You can cancel your subscription at any time through
+                your profile settings. Refunds are handled on a case-by-case basis at our discretion. Free tier users
+                are limited to 10 results per search and 5 saved jobs.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="text-xl font-bold text-white mb-4 flex items-center">
+                <i data-lucide="alert-triangle" class="w-5 h-5 mr-3 text-red-400"></i>
+                5. Prohibited Conduct
+            </h2>
+            <p>
+                You agree not to use our service for any unlawful purpose, to scrape our data using automated tools
+                (unless explicitly permitted), or to interfere with the proper functioning of the platform. Any misuse
+                may result in account termination.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="text-xl font-bold text-white mb-4 flex items-center">
+                <i data-lucide="help-circle" class="w-5 h-5 mr-3 text-indigo-400"></i>
+                6. Contact Us
+            </h2>
+            <p>
+                If you have any questions regarding these terms, please contact our support team. We value your feedback
+                and are committed to providing the best job hunting experience.
+            </p>
+        </section>
+
+        <div class="pt-10 border-t border-[#2a2a4a]/50 flex justify-center">
+            <a href="{% url 'home' %}"
+                class="btn-gradient px-12 py-4 rounded-2xl font-black text-[11px] uppercase tracking-[0.3em] text-white shadow-2xl shadow-indigo-600/30 hover:scale-[1.05] active:scale-95 transition-all">
+                Back to Search
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

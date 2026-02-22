@@ -13,6 +13,9 @@ def landing(request):
 def home(request):
     return render(request, 'jobs/home.html')
 
+def terms_conditions(request):
+    return render(request, 'legal/terms.html')
+
 def search_results(request):
     query = request.GET.get('q', '')
     location = request.GET.get('l', '')
