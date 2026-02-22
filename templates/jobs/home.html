@@ -33,7 +33,9 @@
                 <div class="relative">
                     <label class="block text-xs font-bold text-gray-500 uppercase mb-2 ml-1">Job Title</label>
                     <div class="relative">
-                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">💼</span>
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-indigo-400">
+                            <i data-lucide="briefcase" class="w-4 h-4"></i>
+                        </span>
                         <input type="text" name="q" placeholder="e.g. React Developer" required
                             class="w-full bg-[#1a1a2e] border border-[#2a2a4a] rounded-[8px] py-3 pl-10 pr-4 text-white placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
                     </div>
@@ -42,7 +44,9 @@
                 <div class="relative">
                     <label class="block text-xs font-bold text-gray-500 uppercase mb-2 ml-1">Location</label>
                     <div class="relative">
-                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">📍</span>
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-indigo-400">
+                            <i data-lucide="map-pin" class="w-4 h-4"></i>
+                        </span>
                         <input type="text" name="l" placeholder="e.g. New York or Remote" required
                             class="w-full bg-[#1a1a2e] border border-[#2a2a4a] rounded-[8px] py-3 pl-10 pr-4 text-white placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
                     </div>
@@ -51,7 +55,9 @@
                 <div class="relative">
                     <label class="block text-xs font-bold text-gray-500 uppercase mb-2 ml-1">Keywords</label>
                     <div class="relative">
-                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">🏷️</span>
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-indigo-400">
+                            <i data-lucide="tag" class="w-4 h-4"></i>
+                        </span>
                         <input type="text" name="k" placeholder="e.g. Python, Django (optional)"
                             class="w-full bg-[#1a1a2e] border border-[#2a2a4a] rounded-[8px] py-3 pl-10 pr-4 text-white placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
                     </div>
@@ -60,7 +66,9 @@
                 <div class="relative">
                     <label class="block text-xs font-bold text-gray-500 uppercase mb-2 ml-1">Time Filter</label>
                     <div class="relative">
-                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">🕒</span>
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-indigo-400">
+                            <i data-lucide="clock" class="w-4 h-4"></i>
+                        </span>
                         <select name="t"
                             class="w-full bg-[#1a1a2e] border border-[#2a2a4a] rounded-[8px] py-3 pl-10 pr-4 text-white appearance-none focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all cursor-pointer">
                             <option value="today">Last 24 hours</option>
@@ -75,10 +83,7 @@
                             {% endif %}
                         </select>
                         <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500">
-                            <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20">
-                                <path
-                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                            </svg>
+                            <i data-lucide="chevron-down" class="h-4 w-4"></i>
                         </div>
                     </div>
                 </div>
@@ -87,11 +92,13 @@
             <!-- Remote Only Toggle -->
             <div class="flex items-center justify-end space-x-3 mb-8">
                 <span class="text-sm font-medium text-gray-400 flex items-center">
-                    {% if not user.profile.is_pro %}<span class="mr-2 opacity-70">🔒</span>{% endif %}
+                    {% if not user.profile.is_pro %}
+                    <i data-lucide="lock" class="w-3.5 h-3.5 mr-2 opacity-70"></i>
+                    {% endif %}
                     Remote Only
                     {% if not user.profile.is_pro %}
                     <span
-                        class="ml-2 px-1.5 py-0.5 text-[10px] bg-indigo-500/20 text-indigo-400 rounded-md font-bold">PRO</span>
+                        class="ml-2 px-1.5 py-0.5 text-[10px] bg-indigo-500/20 text-indigo-400 rounded-md font-bold uppercase tracking-widest">Pro</span>
                     {% endif %}
                 </span>
                 <label
@@ -105,9 +112,10 @@
             </div>
 
             <button type="submit"
-                class="w-full btn-gradient py-4 rounded-[12px] font-bold text-lg flex items-center justify-center space-x-2 shadow-xl shadow-indigo-600/20">
-                <span>Search Jobs Instantly</span>
-                <span>🚀</span>
+                class="w-full btn-gradient py-4 rounded-[12px] font-bold text-lg flex items-center justify-center space-x-3 shadow-xl shadow-indigo-600/20 group">
+                <span class="uppercase tracking-widest">Search Jobs Instantly</span>
+                <i data-lucide="send"
+                    class="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
             </button>
         </form>
     </div>
@@ -128,24 +136,30 @@
 
     <!-- Features Section -->
     <div class="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-5xl px-4">
-        <div class="glass p-6 rounded-[16px] hover:translate-y-[-4px] transition-all duration-300 group cursor-default">
+        <div
+            class="glass p-6 rounded-[16px] hover:translate-y-[-4px] transition-all duration-300 group cursor-default border-indigo-500/10">
             <div
-                class="w-12 h-12 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
-                ⚡</div>
+                class="w-12 h-12 rounded-2xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-12 transition-all">
+                <i data-lucide="zap" class="w-6 h-6 fill-indigo-400"></i>
+            </div>
             <h3 class="font-bold text-lg mb-2">Real-Time Results</h3>
             <p class="text-gray-400 text-sm">Jobs posted as recently as the last hour at your fingertips.</p>
         </div>
-        <div class="glass p-6 rounded-[16px] hover:translate-y-[-4px] transition-all duration-300 group cursor-default">
+        <div
+            class="glass p-6 rounded-[16px] hover:translate-y-[-4px] transition-all duration-300 group cursor-default border-purple-500/10">
             <div
-                class="w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
-                🌐</div>
+                class="w-12 h-12 rounded-2xl bg-purple-500/10 text-purple-400 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-12 transition-all">
+                <i data-lucide="globe" class="w-6 h-6"></i>
+            </div>
             <h3 class="font-bold text-lg mb-2">Multi-Platform</h3>
             <p class="text-gray-400 text-sm">One search, every major job board. No more tab hopping.</p>
         </div>
-        <div class="glass p-6 rounded-[16px] hover:translate-y-[-4px] transition-all duration-300 group cursor-default">
+        <div
+            class="glass p-6 rounded-[16px] hover:translate-y-[-4px] transition-all duration-300 group cursor-default border-green-500/10">
             <div
-                class="w-12 h-12 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
-                🔔</div>
+                class="w-12 h-12 rounded-2xl bg-green-500/10 text-green-400 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-12 transition-all">
+                <i data-lucide="bell" class="w-6 h-6 fill-green-400"></i>
+            </div>
             <h3 class="font-bold text-lg mb-2">Smart Alerts</h3>
             <p class="text-gray-400 text-sm">Daily digest to your inbox of matching jobs. (Pro Only)</p>
         </div>

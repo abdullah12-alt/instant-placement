@@ -43,6 +43,7 @@
     <div class="max-w-5xl mx-auto text-center z-10 animate-fade-in">
         <div
             class="inline-flex items-center px-4 py-2 rounded-full hero-glass border border-indigo-500/30 text-xs font-bold text-indigo-400 mb-8 tracking-[0.2em] uppercase text-center mx-auto">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5 mr-2"></i>
             Real-Time Intelligence
         </div>
         <h1 class="text-6xl md:text-8xl font-black mb-6 tracking-tight leading-[0.9]">
@@ -55,8 +56,10 @@
         </p>
         <div class="flex flex-col md:flex-row items-center justify-center gap-6">
             <a href="{% url 'account_signup' %}"
-                class="btn-gradient px-12 py-5 rounded-2xl font-black text-sm uppercase tracking-widest shadow-2xl shadow-indigo-600/40 hover:scale-105 transition-all">
+                class="btn-gradient px-12 py-5 rounded-2xl font-black text-sm uppercase tracking-widest shadow-2xl shadow-indigo-600/40 hover:scale-105 transition-all group">
                 Get Started For Free
+                <i data-lucide="arrow-right"
+                    class="inline-block ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
             </a>
             <a href="#founder"
                 class="hero-glass text-white px-12 py-5 rounded-2xl font-black text-sm uppercase tracking-widest border border-white/10 hover:bg-white/5 transition-all">
@@ -67,21 +70,37 @@
 
     <!-- Floating Stats -->
     <div class="mt-24 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16">
-        <div class="text-center">
-            <div class="text-3xl font-black text-white">50k+</div>
-            <div class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-2">Daily Leads</div>
+        <div class="text-center group">
+            <div class="text-3xl font-black text-white group-hover:text-indigo-400 transition-colors">50k+</div>
+            <div
+                class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-2 flex items-center justify-center">
+                <i data-lucide="trending-up" class="w-3 h-3 mr-1.5 text-indigo-500"></i>
+                Daily Leads
+            </div>
         </div>
-        <div class="text-center">
-            <div class="text-3xl font-black text-white">1s</div>
-            <div class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-2">Search Speed</div>
+        <div class="text-center group">
+            <div class="text-3xl font-black text-white group-hover:text-purple-400 transition-colors">1s</div>
+            <div
+                class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-2 flex items-center justify-center">
+                <i data-lucide="Zap" class="w-3 h-3 mr-1.5 text-purple-500"></i>
+                Search Speed
+            </div>
         </div>
-        <div class="text-center">
-            <div class="text-3xl font-black text-white">100+</div>
-            <div class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-2">Platforms</div>
+        <div class="text-center group">
+            <div class="text-3xl font-black text-white group-hover:text-green-400 transition-colors">100+</div>
+            <div
+                class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-2 flex items-center justify-center">
+                <i data-lucide="globe" class="w-3 h-3 mr-1.5 text-green-500"></i>
+                Platforms
+            </div>
         </div>
-        <div class="text-center">
-            <div class="text-3xl font-black text-white">10k+</div>
-            <div class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-2">Users</div>
+        <div class="text-center group">
+            <div class="text-3xl font-black text-white group-hover:text-blue-400 transition-colors">10k+</div>
+            <div
+                class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-2 flex items-center justify-center">
+                <i data-lucide="users" class="w-3 h-3 mr-1.5 text-blue-500"></i>
+                Users
+            </div>
         </div>
     </div>
 </section>
@@ -117,13 +136,19 @@
                     seamless as one click."
                 </p>
                 <div class="pt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="space-y-2">
-                        <div class="text-white font-bold">The Motive</div>
+                    <div class="space-y-3">
+                        <div class="flex items-center text-white font-bold">
+                            <i data-lucide="target" class="w-4 h-4 mr-2 text-indigo-400"></i>
+                            The Motive
+                        </div>
                         <p class="text-sm text-gray-500">Empowering job seekers by saving them hundreds of hours in
                             their search process.</p>
                     </div>
-                    <div class="space-y-2">
-                        <div class="text-white font-bold">The Vision</div>
+                    <div class="space-y-3">
+                        <div class="flex items-center text-white font-bold">
+                            <i data-lucide="eye" class="w-4 h-4 mr-2 text-purple-400"></i>
+                            The Vision
+                        </div>
                         <p class="text-sm text-gray-500">To become the world's primary hub for real-time career
                             opportunities.</p>
                     </div>
@@ -135,7 +160,7 @@
 
 <!-- Features Section -->
 <section class="py-32 bg-[#0f0f13]/50">
-    <div class="max-w-7xl mx-auto px-4 text-center mb-20">
+    <div class="max-w-7xl mx-auto px-4 text-center mb-20 text-white">
         <h2 class="text-4xl font-black mb-6 uppercase tracking-widest">Platform Features</h2>
         <div class="w-24 h-1 bg-indigo-600 mx-auto rounded-full"></div>
     </div>
@@ -143,25 +168,28 @@
     <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-10">
         <div class="glass p-10 rounded-[32px] border-indigo-500/10 hover:border-indigo-500/40 transition-all group">
             <div
-                class="w-16 h-16 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-3xl mb-8 group-hover:scale-110 transition-transform">
-                ⚡</div>
-            <h3 class="text-xl font-bold mb-4">Hyper-Real-Time</h3>
+                class="w-16 h-16 rounded-2xl bg-indigo-500/10 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:rotate-12 transition-all">
+                <i data-lucide="zap" class="w-8 h-8 text-indigo-400 fill-indigo-400"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4 text-white">Hyper-Real-Time</h3>
             <p class="text-gray-500 text-sm leading-relaxed">Our scrapers work 24/7 to bring you jobs posted as recently
                 as 1 hour ago. Be the first to apply.</p>
         </div>
         <div class="glass p-10 rounded-[32px] border-purple-500/10 hover:border-purple-500/40 transition-all group">
             <div
-                class="w-16 h-16 rounded-2xl bg-purple-500/10 flex items-center justify-center text-3xl mb-8 group-hover:scale-110 transition-transform">
-                🌐</div>
-            <h3 class="text-xl font-bold mb-4">Unified Feed</h3>
+                class="w-16 h-16 rounded-2xl bg-purple-500/10 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:rotate-12 transition-all">
+                <i data-lucide="layout" class="w-8 h-8 text-purple-400"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4 text-white">Unified Feed</h3>
             <p class="text-gray-500 text-sm leading-relaxed">LinkedIn, Indeed, Glassdoor, ZipRecruiter and 100+ niche
                 boards in one single clean interface.</p>
         </div>
         <div class="glass p-10 rounded-[32px] border-green-500/10 hover:border-green-500/40 transition-all group">
             <div
-                class="w-16 h-16 rounded-2xl bg-green-500/10 flex items-center justify-center text-3xl mb-8 group-hover:scale-110 transition-transform">
-                🎯</div>
-            <h3 class="text-xl font-bold mb-4">Smart Filtering</h3>
+                class="w-16 h-16 rounded-2xl bg-green-500/10 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:rotate-12 transition-all">
+                <i data-lucide="filter" class="w-8 h-8 text-green-400"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4 text-white">Smart Filtering</h3>
             <p class="text-gray-500 text-sm leading-relaxed">Filter by remote-only status, salary ranges, and technical
                 keywords with precision logic.</p>
         </div>
@@ -171,40 +199,55 @@
 <!-- Testimonials -->
 <section class="py-32 relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-4">
-        <div class="text-center mb-20">
+        <div class="text-center mb-20 text-white">
             <h2 class="text-4xl font-black mb-6 tracking-widest uppercase">What our users say</h2>
             <p class="text-gray-500 uppercase text-[10px] font-black tracking-[0.4em]">Success Stories from around the
                 globe</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="glass p-8 rounded-3xl border-white/5 italic text-gray-300">
-                <p class="mb-6">"I found my current Lead Engineer role at a YC startup through Instant Placement. The
-                    speed is unmatched."</p>
+            <div class="glass p-8 rounded-3xl border-white/5 italic text-gray-300 relative group">
+                <i data-lucide="quote"
+                    class="absolute top-6 right-8 w-12 h-12 text-indigo-500/10 group-hover:text-indigo-500/20 transition-colors"></i>
+                <p class="mb-6 relative z-10">"I found my current Lead Engineer role at a YC startup through Instant
+                    Placement. The speed is unmatched."</p>
                 <div class="flex items-center gap-4 not-italic">
-                    <div class="w-10 h-10 rounded-full bg-indigo-500"></div>
+                    <div
+                        class="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+                        <i data-lucide="user" class="w-5 h-5 text-white"></i>
+                    </div>
                     <div>
                         <div class="text-xs font-bold text-white uppercase">Sarah Jenkins</div>
                         <div class="text-[9px] text-gray-500 uppercase tracking-widest">Lead Dev at Meta</div>
                     </div>
                 </div>
             </div>
-            <div class="glass p-8 rounded-3xl border-white/5 italic text-gray-300">
-                <p class="mb-6">"Finally! One place to see everything. The 1h time filter is a game changer for
-                    competitive remote roles."</p>
+            <div class="glass p-8 rounded-3xl border-white/5 italic text-gray-300 relative group">
+                <i data-lucide="quote"
+                    class="absolute top-6 right-8 w-12 h-12 text-purple-500/10 group-hover:text-purple-500/20 transition-colors"></i>
+                <p class="mb-6 relative z-10">"Finally! One place to see everything. The 1h time filter is a game
+                    changer for competitive remote roles."</p>
                 <div class="flex items-center gap-4 not-italic">
-                    <div class="w-10 h-10 rounded-full bg-purple-500"></div>
+                    <div
+                        class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center">
+                        <i data-lucide="user" class="w-5 h-5 text-white"></i>
+                    </div>
                     <div>
                         <div class="text-xs font-bold text-white uppercase">Michael Chen</div>
                         <div class="text-[9px] text-gray-500 uppercase tracking-widest">Fullstack Engineer</div>
                     </div>
                 </div>
             </div>
-            <div class="glass p-8 rounded-3xl border-white/5 italic text-gray-300">
-                <p class="mb-6">"As a founder, I used this to help my friends find roles during layoffs. It's the most
-                    helpful tool I've seen."</p>
+            <div class="glass p-8 rounded-3xl border-white/5 italic text-gray-300 relative group">
+                <i data-lucide="quote"
+                    class="absolute top-6 right-8 w-12 h-12 text-green-500/10 group-hover:text-green-500/20 transition-colors"></i>
+                <p class="mb-6 relative z-10">"As a founder, I used this to help my friends find roles during layoffs.
+                    It's the most helpful tool I've seen."</p>
                 <div class="flex items-center gap-4 not-italic">
-                    <div class="w-10 h-10 rounded-full bg-green-500"></div>
+                    <div
+                        class="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
+                        <i data-lucide="user" class="w-5 h-5 text-white"></i>
+                    </div>
                     <div>
                         <div class="text-xs font-bold text-white uppercase">Jessica Alba</div>
                         <div class="text-[9px] text-gray-500 uppercase tracking-widest">Founder, TechStack</div>
@@ -215,53 +258,8 @@
     </div>
 </section>
 
-<!-- Pricing Placeholder -->
-<section class="py-32 bg-indigo-600/5">
-    <div
-        class="max-w-5xl mx-auto px-4 glass p-16 rounded-[48px] border-indigo-500/20 text-center relative overflow-hidden">
-        <div class="absolute -top-24 -right-24 w-64 h-64 bg-indigo-600/10 rounded-full blur-3xl"></div>
-        <h2 class="text-4xl font-black text-white mb-6 uppercase tracking-[0.2em]">Ready to find your job?</h2>
-        <p class="text-gray-400 mb-12 text-lg">Join 10,000+ professionals who have simplified their career journey.</p>
-        <div class="flex flex-col md:flex-row items-center justify-center gap-8">
-            <div class="text-left md:pr-12 md:border-r border-white/10">
-                <div class="text-[10px] font-black text-indigo-400 uppercase tracking-widest mb-1">Free Tier</div>
-                <div class="text-2xl font-black text-white">$0 <span class="text-xs text-gray-500">/ forever</span>
-                </div>
-                <ul class="mt-4 space-y-2 text-xs text-gray-500">
-                    <li>✓ 10 Search Results</li>
-                    <li>✓ Basic Job Tags</li>
-                    <li>✓ Standard Search Speed</li>
-                </ul>
-            </div>
-            <div class="text-left md:pl-4">
-                <div class="text-[10px] font-black text-purple-400 uppercase tracking-widest mb-1">Pro Tier</div>
-                <div class="text-2xl font-black text-white">$9.99 <span class="text-xs text-gray-500">/ month</span>
-                </div>
-                <ul class="mt-4 space-y-2 text-xs text-gray-500">
-                    <li>✓ 100+ Search Results</li>
-                    <li>✓ Unlimited Saved Jobs</li>
-                    <li>✓ Real-Time Alerts (1h & 8h)</li>
-                    <li>✓ Keyword Exclusion</li>
-                </ul>
-            </div>
-        </div>
-        <div class="mt-16">
-            <a href="{% url 'account_signup' %}"
-                class="btn-gradient px-20 py-6 rounded-3xl font-black text-md uppercase tracking-[0.3em] shadow-2xl shadow-indigo-600/50 inline-block hover:scale-105 transition-all">
-                Unlock Pro Access Now
-            </a>
-        </div>
-    </div>
-</section>
+<!-- Pricing Footer -->
 
-<footer class="py-20 border-t border-white/5">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-        <div class="text-2xl font-black text-white mb-6 uppercase tracking-[0.3em]">Instant <span
-                class="text-gradient">Placement</span></div>
-        <p class="text-gray-500 text-xs tracking-widest uppercase">© 2026 Instant Placement. Designed with ❤️ by
-            Abdullah Hassan.</p>
-    </div>
-</footer>
 
 <!-- Three.js Library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
