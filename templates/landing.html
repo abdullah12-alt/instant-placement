@@ -1,0 +1,321 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Welcome to Instant Placement{% endblock %}
+
+{% block content %}
+<style>
+    #canvas-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        z-index: -1;
+        overflow: hidden;
+    }
+
+    .hero-glass {
+        background: rgba(15, 15, 19, 0.4);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .profile-card {
+        background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+        border: 1px solid rgba(99, 102, 241, 0.2);
+    }
+
+    .glow-dot {
+        width: 8px;
+        height: 8px;
+        background: #6366f1;
+        border-radius: 50%;
+        box-shadow: 0 0 15px #6366f1;
+    }
+</style>
+
+<!-- Three.js Background -->
+<div id="canvas-container"></div>
+
+<!-- Hero Section -->
+<section class="relative min-h-screen flex flex-col items-center justify-center px-4 pt-20">
+    <div class="max-w-5xl mx-auto text-center z-10 animate-fade-in">
+        <div
+            class="inline-flex items-center px-4 py-2 rounded-full hero-glass border border-indigo-500/30 text-xs font-bold text-indigo-400 mb-8 tracking-[0.2em] uppercase text-center mx-auto">
+            Real-Time Intelligence
+        </div>
+        <h1 class="text-6xl md:text-8xl font-black mb-6 tracking-tight leading-[0.9]">
+            The Future of<br>
+            <span class="text-gradient">Job Hunting.</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-12 leading-relaxed">
+            Stop switching tabs. Start getting hired. Instant Placement aggregates LinkedIn, Indeed, Glassdoor and more
+            into one powerful feed.
+        </p>
+        <div class="flex flex-col md:flex-row items-center justify-center gap-6">
+            <a href="{% url 'account_signup' %}"
+                class="btn-gradient px-12 py-5 rounded-2xl font-black text-sm uppercase tracking-widest shadow-2xl shadow-indigo-600/40 hover:scale-105 transition-all">
+                Get Started For Free
+            </a>
+            <a href="#founder"
+                class="hero-glass text-white px-12 py-5 rounded-2xl font-black text-sm uppercase tracking-widest border border-white/10 hover:bg-white/5 transition-all">
+                Meet the Founder
+            </a>
+        </div>
+    </div>
+
+    <!-- Floating Stats -->
+    <div class="mt-24 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16">
+        <div class="text-center">
+            <div class="text-3xl font-black text-white">50k+</div>
+            <div class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-2">Daily Leads</div>
+        </div>
+        <div class="text-center">
+            <div class="text-3xl font-black text-white">1s</div>
+            <div class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-2">Search Speed</div>
+        </div>
+        <div class="text-center">
+            <div class="text-3xl font-black text-white">100+</div>
+            <div class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-2">Platforms</div>
+        </div>
+        <div class="text-center">
+            <div class="text-3xl font-black text-white">10k+</div>
+            <div class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-2">Users</div>
+        </div>
+    </div>
+</section>
+
+<!-- Founder Section -->
+<section id="founder" class="py-32 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            <div class="relative">
+                <div class="absolute -top-20 -left-20 w-64 h-64 bg-indigo-600/20 rounded-full blur-[100px]"></div>
+                <div class="glass p-4 rounded-[40px] border-indigo-500/20 relative group">
+                    <img src="{% static 'images/pic.png' %}" alt="Abdullah Hassan"
+                        class="w-full h-auto rounded-[32px] grayscale group-hover:grayscale-0 transition-all duration-700">
+                    <div class="absolute bottom-10 left-10 right-10 glass p-6 rounded-2xl border-white/10">
+                        <h4 class="font-black text-white tracking-widest uppercase">Abdullah Hassan</h4>
+                        <p class="text-xs text-indigo-400 font-bold uppercase tracking-widest mt-1">Software Engineer &
+                            Founder</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-8">
+                <div class="inline-flex items-center space-x-3">
+                    <div class="glow-dot shadow-indigo-500/50"></div>
+                    <span class="text-[11px] font-black text-gray-500 uppercase tracking-widest">Our Story</span>
+                </div>
+                <h2 class="text-5xl font-black text-white leading-tight">Driven by a Passion to <span
+                        class="text-gradient">Help People.</span></h2>
+                <p class="text-gray-400 text-lg leading-relaxed">
+                    "I remember spending hours every day browsing through dozens of job boards, losing track of where I
+                    had applied and missing out on fresh leads. As a software engineer, I knew there was a better way. I
+                    built Instant Placement to bridge the gap between talent and opportunity, making job hunting as
+                    seamless as one click."
+                </p>
+                <div class="pt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <div class="text-white font-bold">The Motive</div>
+                        <p class="text-sm text-gray-500">Empowering job seekers by saving them hundreds of hours in
+                            their search process.</p>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="text-white font-bold">The Vision</div>
+                        <p class="text-sm text-gray-500">To become the world's primary hub for real-time career
+                            opportunities.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-32 bg-[#0f0f13]/50">
+    <div class="max-w-7xl mx-auto px-4 text-center mb-20">
+        <h2 class="text-4xl font-black mb-6 uppercase tracking-widest">Platform Features</h2>
+        <div class="w-24 h-1 bg-indigo-600 mx-auto rounded-full"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div class="glass p-10 rounded-[32px] border-indigo-500/10 hover:border-indigo-500/40 transition-all group">
+            <div
+                class="w-16 h-16 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-3xl mb-8 group-hover:scale-110 transition-transform">
+                ⚡</div>
+            <h3 class="text-xl font-bold mb-4">Hyper-Real-Time</h3>
+            <p class="text-gray-500 text-sm leading-relaxed">Our scrapers work 24/7 to bring you jobs posted as recently
+                as 1 hour ago. Be the first to apply.</p>
+        </div>
+        <div class="glass p-10 rounded-[32px] border-purple-500/10 hover:border-purple-500/40 transition-all group">
+            <div
+                class="w-16 h-16 rounded-2xl bg-purple-500/10 flex items-center justify-center text-3xl mb-8 group-hover:scale-110 transition-transform">
+                🌐</div>
+            <h3 class="text-xl font-bold mb-4">Unified Feed</h3>
+            <p class="text-gray-500 text-sm leading-relaxed">LinkedIn, Indeed, Glassdoor, ZipRecruiter and 100+ niche
+                boards in one single clean interface.</p>
+        </div>
+        <div class="glass p-10 rounded-[32px] border-green-500/10 hover:border-green-500/40 transition-all group">
+            <div
+                class="w-16 h-16 rounded-2xl bg-green-500/10 flex items-center justify-center text-3xl mb-8 group-hover:scale-110 transition-transform">
+                🎯</div>
+            <h3 class="text-xl font-bold mb-4">Smart Filtering</h3>
+            <p class="text-gray-500 text-sm leading-relaxed">Filter by remote-only status, salary ranges, and technical
+                keywords with precision logic.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="py-32 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-20">
+            <h2 class="text-4xl font-black mb-6 tracking-widest uppercase">What our users say</h2>
+            <p class="text-gray-500 uppercase text-[10px] font-black tracking-[0.4em]">Success Stories from around the
+                globe</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="glass p-8 rounded-3xl border-white/5 italic text-gray-300">
+                <p class="mb-6">"I found my current Lead Engineer role at a YC startup through Instant Placement. The
+                    speed is unmatched."</p>
+                <div class="flex items-center gap-4 not-italic">
+                    <div class="w-10 h-10 rounded-full bg-indigo-500"></div>
+                    <div>
+                        <div class="text-xs font-bold text-white uppercase">Sarah Jenkins</div>
+                        <div class="text-[9px] text-gray-500 uppercase tracking-widest">Lead Dev at Meta</div>
+                    </div>
+                </div>
+            </div>
+            <div class="glass p-8 rounded-3xl border-white/5 italic text-gray-300">
+                <p class="mb-6">"Finally! One place to see everything. The 1h time filter is a game changer for
+                    competitive remote roles."</p>
+                <div class="flex items-center gap-4 not-italic">
+                    <div class="w-10 h-10 rounded-full bg-purple-500"></div>
+                    <div>
+                        <div class="text-xs font-bold text-white uppercase">Michael Chen</div>
+                        <div class="text-[9px] text-gray-500 uppercase tracking-widest">Fullstack Engineer</div>
+                    </div>
+                </div>
+            </div>
+            <div class="glass p-8 rounded-3xl border-white/5 italic text-gray-300">
+                <p class="mb-6">"As a founder, I used this to help my friends find roles during layoffs. It's the most
+                    helpful tool I've seen."</p>
+                <div class="flex items-center gap-4 not-italic">
+                    <div class="w-10 h-10 rounded-full bg-green-500"></div>
+                    <div>
+                        <div class="text-xs font-bold text-white uppercase">Jessica Alba</div>
+                        <div class="text-[9px] text-gray-500 uppercase tracking-widest">Founder, TechStack</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing Placeholder -->
+<section class="py-32 bg-indigo-600/5">
+    <div
+        class="max-w-5xl mx-auto px-4 glass p-16 rounded-[48px] border-indigo-500/20 text-center relative overflow-hidden">
+        <div class="absolute -top-24 -right-24 w-64 h-64 bg-indigo-600/10 rounded-full blur-3xl"></div>
+        <h2 class="text-4xl font-black text-white mb-6 uppercase tracking-[0.2em]">Ready to find your job?</h2>
+        <p class="text-gray-400 mb-12 text-lg">Join 10,000+ professionals who have simplified their career journey.</p>
+        <div class="flex flex-col md:flex-row items-center justify-center gap-8">
+            <div class="text-left md:pr-12 md:border-r border-white/10">
+                <div class="text-[10px] font-black text-indigo-400 uppercase tracking-widest mb-1">Free Tier</div>
+                <div class="text-2xl font-black text-white">$0 <span class="text-xs text-gray-500">/ forever</span>
+                </div>
+                <ul class="mt-4 space-y-2 text-xs text-gray-500">
+                    <li>✓ 10 Search Results</li>
+                    <li>✓ Basic Job Tags</li>
+                    <li>✓ Standard Search Speed</li>
+                </ul>
+            </div>
+            <div class="text-left md:pl-4">
+                <div class="text-[10px] font-black text-purple-400 uppercase tracking-widest mb-1">Pro Tier</div>
+                <div class="text-2xl font-black text-white">$9.99 <span class="text-xs text-gray-500">/ month</span>
+                </div>
+                <ul class="mt-4 space-y-2 text-xs text-gray-500">
+                    <li>✓ 100+ Search Results</li>
+                    <li>✓ Unlimited Saved Jobs</li>
+                    <li>✓ Real-Time Alerts (1h & 8h)</li>
+                    <li>✓ Keyword Exclusion</li>
+                </ul>
+            </div>
+        </div>
+        <div class="mt-16">
+            <a href="{% url 'account_signup' %}"
+                class="btn-gradient px-20 py-6 rounded-3xl font-black text-md uppercase tracking-[0.3em] shadow-2xl shadow-indigo-600/50 inline-block hover:scale-105 transition-all">
+                Unlock Pro Access Now
+            </a>
+        </div>
+    </div>
+</section>
+
+<footer class="py-20 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+        <div class="text-2xl font-black text-white mb-6 uppercase tracking-[0.3em]">Instant <span
+                class="text-gradient">Placement</span></div>
+        <p class="text-gray-500 text-xs tracking-widest uppercase">© 2026 Instant Placement. Designed with ❤️ by
+            Abdullah Hassan.</p>
+    </div>
+</footer>
+
+<!-- Three.js Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+    // Simple Three.js Background
+    let scene, camera, renderer, particles;
+
+    function init() {
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 5;
+
+        renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+        const geometry = new THREE.BufferGeometry();
+        const vertices = [];
+        for (let i = 0; i < 5000; i++) {
+            vertices.push(
+                Math.random() * 20 - 10,
+                Math.random() * 20 - 10,
+                Math.random() * 20 - 10
+            );
+        }
+        geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+
+        const material = new THREE.PointsMaterial({
+            color: 0x6366f1,
+            size: 0.02,
+            transparent: true,
+            opacity: 0.5
+        });
+
+        particles = new THREE.Points(geometry, material);
+        scene.add(particles);
+
+        animate();
+    }
+
+    function animate() {
+        requestAnimationFrame(animate);
+        particles.rotation.y += 0.0005;
+        particles.rotation.x += 0.0002;
+        renderer.render(scene, camera);
+    }
+
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    init();
+</script>
+
+{% endblock %}

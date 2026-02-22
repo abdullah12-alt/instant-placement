@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}Search Results{% endblock %}
 
 {% block content %}
@@ -42,8 +43,8 @@
                 </h3>
                 <p class="text-gray-400 max-w-xl leading-relaxed">
                     You're seeing a limited preview. Pro users unlock up to <span class="text-indigo-400 font-bold">100
-                        results</span>, real-time filters (1h, 8h),
-                    keyword exclusion, and daily email alerts delivered to their inbox.
+                        results</span>, real-time filters (1h, 8h), keyword exclusion, and daily email alerts delivered
+                    to their inbox.
                 </p>
             </div>
             <a href="{% url 'pricing' %}"
@@ -51,7 +52,6 @@
                 Upgrade to Pro — $9/mo →
             </a>
         </div>
-        <!-- Shimmer effect -->
         <div
             class="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent via-white/5 to-transparent group-hover:animate-shimmer">
         </div>
@@ -70,7 +70,7 @@
                     </svg>
                 </h3>
 
-                <form action="{% url 'search_results' %}" method="get" class="space-y-10">
+                <form action="{% url 'search_results' %}" method="get" class="space-y-10" data-show-progress>
                     <input type="hidden" name="q" value="{{ query }}">
                     <input type="hidden" name="l" value="{{ location }}">
                     <input type="hidden" name="k" value="{{ query_k }}">
@@ -81,17 +81,29 @@
                             Posted</label>
                         <div class="flex flex-wrap gap-2.5">
                             <label class="cursor-pointer">
-                                <input type="radio" name="t" value="today" class="sr-only peer" {% if query_t == 'today' %}checked{% endif %}>
+                                {% if query_t == 'today' %}
+                                <input type="radio" name="t" value="today" class="sr-only peer" checked>
+                                {% else %}
+                                <input type="radio" name="t" value="today" class="sr-only peer">
+                                {% endif %}
                                 <span
                                     class="px-5 py-2.5 bg-[#1a1a2e] border border-[#2a2a4a] rounded-full text-[12px] font-bold text-gray-400 peer-checked:bg-white peer-checked:text-[#0f0f13] peer-checked:border-white transition-all hover:border-indigo-500/50 block">24h</span>
                             </label>
                             <label class="cursor-pointer">
-                                <input type="radio" name="t" value="week" class="sr-only peer" {% if query_t == 'week' %}checked{% endif %}>
+                                {% if query_t == 'week' %}
+                                <input type="radio" name="t" value="week" class="sr-only peer" checked>
+                                {% else %}
+                                <input type="radio" name="t" value="week" class="sr-only peer">
+                                {% endif %}
                                 <span
                                     class="px-5 py-2.5 bg-[#1a1a2e] border border-[#2a2a4a] rounded-full text-[12px] font-bold text-gray-400 peer-checked:bg-white peer-checked:text-[#0f0f13] peer-checked:border-white transition-all hover:border-indigo-500/50 block">Week</span>
                             </label>
                             <label class="cursor-pointer">
-                                <input type="radio" name="t" value="month" class="sr-only peer" {% if query_t == 'month' %}checked{% endif %}>
+                                {% if query_t == 'month' %}
+                                <input type="radio" name="t" value="month" class="sr-only peer" checked>
+                                {% else %}
+                                <input type="radio" name="t" value="month" class="sr-only peer">
+                                {% endif %}
                                 <span
                                     class="px-5 py-2.5 bg-[#1a1a2e] border border-[#2a2a4a] rounded-full text-[12px] font-bold text-gray-400 peer-checked:bg-white peer-checked:text-[#0f0f13] peer-checked:border-white transition-all hover:border-indigo-500/50 block">Month</span>
                             </label>
@@ -100,20 +112,32 @@
                         <!-- Pro Time Filters -->
                         <div class="mt-4 space-y-2">
                             <label
-                                class="flex items-center justify-between p-3.5 bg-[#1a1a2e]/50 border border-[#2a2a4a] rounded-2xl group transition-all {% if user.profile.is_pro %}cursor-pointer hover:border-indigo-500{% else %}cursor-not-allowed opacity-60{% endif %}">
+                                class="flex items-center justify-between p-3.5 bg-[#1a1a2e]/50 border border-[#2a2a4a] rounded-2xl group transition-all {{ user.profile.is_pro|yesno:'cursor-pointer hover:border-indigo-500,cursor-not-allowed opacity-60' }}">
                                 <div class="flex items-center text-xs font-bold text-gray-300">
                                     {% if not user.profile.is_pro %}<span class="mr-2.5">🔒</span>{% endif %}
-                                    <input type="radio" name="t" value="1h" class="sr-only peer" {% if not user.profile.is_pro %}disabled{% endif %} {% if query_t == '1h' %}checked{% endif %}>
+                                    {% if query_t == '1h' %}
+                                    <input type="radio" name="t" value="1h" class="sr-only peer" {{
+                                        user.profile.is_pro|yesno:',disabled' }} checked>
+                                    {% else %}
+                                    <input type="radio" name="t" value="1h" class="sr-only peer" {{
+                                        user.profile.is_pro|yesno:',disabled' }}>
+                                    {% endif %}
                                     <span class="peer-checked:text-indigo-400 transition-colors">Last 1 Hour</span>
                                 </div>
                                 <span
                                     class="text-[9px] font-black text-indigo-500/50 group-hover:text-indigo-500 transition-colors">PRO</span>
                             </label>
                             <label
-                                class="flex items-center justify-between p-3.5 bg-[#1a1a2e]/50 border border-[#2a2a4a] rounded-2xl group transition-all {% if user.profile.is_pro %}cursor-pointer hover:border-indigo-500{% else %}cursor-not-allowed opacity-60{% endif %}">
+                                class="flex items-center justify-between p-3.5 bg-[#1a1a2e]/50 border border-[#2a2a4a] rounded-2xl group transition-all {{ user.profile.is_pro|yesno:'cursor-pointer hover:border-indigo-500,cursor-not-allowed opacity-60' }}">
                                 <div class="flex items-center text-xs font-bold text-gray-300">
                                     {% if not user.profile.is_pro %}<span class="mr-2.5">🔒</span>{% endif %}
-                                    <input type="radio" name="t" value="8h" class="sr-only peer" {% if not user.profile.is_pro %}disabled{% endif %} {% if query_t == '8h' %}checked{% endif %}>
+                                    {% if query_t == '8h' %}
+                                    <input type="radio" name="t" value="8h" class="sr-only peer" {{
+                                        user.profile.is_pro|yesno:',disabled' }} checked>
+                                    {% else %}
+                                    <input type="radio" name="t" value="8h" class="sr-only peer" {{
+                                        user.profile.is_pro|yesno:',disabled' }}>
+                                    {% endif %}
                                     <span class="peer-checked:text-indigo-400 transition-colors">Last 8 Hours</span>
                                 </div>
                                 <span
@@ -133,8 +157,14 @@
                             {% endif %}
                         </div>
                         <label
-                            class="relative inline-flex items-center {% if not user.profile.is_pro %}cursor-not-allowed opacity-50{% else %}cursor-pointer{% endif %}">
-                            <input type="checkbox" name="remote" value="true" class="sr-only peer" {% if not user.profile.is_pro %}disabled{% endif %} {% if query_remote %}checked{% endif %}>
+                            class="relative inline-flex items-center {{ user.profile.is_pro|yesno:'cursor-pointer,cursor-not-allowed opacity-50' }}">
+                            {% if query_remote %}
+                            <input type="checkbox" name="remote" value="true" class="sr-only peer" {{
+                                user.profile.is_pro|yesno:',disabled' }} checked>
+                            {% else %}
+                            <input type="checkbox" name="remote" value="true" class="sr-only peer" {{
+                                user.profile.is_pro|yesno:',disabled' }}>
+                            {% endif %}
                             <div
                                 class="w-12 h-6.5 bg-gray-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5.5 after:w-5.5 after:transition-all peer-checked:bg-indigo-600">
                             </div>
@@ -142,17 +172,15 @@
                     </div>
 
                     <button type="submit"
-                        class="w-full btn-gradient py-4 rounded-2xl font-black text-xs uppercase tracking-widest shadow-lg shadow-indigo-500/20">
-                        Apply Filters
-                    </button>
+                        class="w-full btn-gradient py-4 rounded-2xl font-black text-xs uppercase tracking-widest shadow-lg shadow-indigo-500/20">Apply
+                        Filters</button>
                 </form>
 
                 {% if user.profile.is_pro %}
                 <div class="mt-8 pt-8 border-t border-[#2a2a4a]">
                     <button onclick="saveSearch()"
-                        class="w-full glass border-indigo-500/30 text-indigo-400 py-3 rounded-2xl text-[11px] font-black uppercase tracking-widest hover:bg-indigo-500/10 transition-all">
-                        Save This Search
-                    </button>
+                        class="w-full glass border-indigo-500/30 text-indigo-400 py-3 rounded-2xl text-[11px] font-black uppercase tracking-widest hover:bg-indigo-500/10 transition-all">Save
+                        This Search</button>
                 </div>
                 {% endif %}
             </div>
@@ -166,8 +194,7 @@
                     class="glass p-7 rounded-[28px] border-[#2a2a4a] hover:border-indigo-500/50 hover:shadow-2xl hover:shadow-indigo-500/5 hover:-translate-y-1.5 transition-all duration-300 group flex flex-col h-full bg-[#16162a]/40">
                     <div class="flex justify-between items-start mb-6">
                         <span
-                            class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border
-                                {% if 'linkedin' in job.job_publisher|lower %}bg-blue-500/10 text-blue-400 border-blue-500/20{% elif 'indeed' in job.job_publisher|lower %}bg-red-500/10 text-red-400 border-red-500/20{% elif 'glassdoor' in job.job_publisher|lower %}bg-green-500/10 text-green-400 border-green-500/20{% else %}bg-indigo-500/10 text-indigo-400 border-indigo-500/20{% endif %}">
+                            class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border {% if 'linkedin' in job.job_publisher|lower %}bg-blue-500/10 text-blue-400 border-blue-500/20{% elif 'indeed' in job.job_publisher|lower %}bg-red-500/10 text-red-400 border-red-500/20{% elif 'glassdoor' in job.job_publisher|lower %}bg-green-500/10 text-green-400 border-green-500/20{% else %}bg-indigo-500/10 text-indigo-400 border-indigo-500/20{% endif %}">
                             {{ job.job_publisher|default:"Instant Placement" }}
                         </span>
                         <span class="text-[10px] font-bold text-gray-500 uppercase tracking-tight">
@@ -181,7 +208,8 @@
                             {{ job.employer_name|slice:":1"|upper }}
                         </div>
                         <div class="overflow-hidden">
-                            <p class="text-[11px] font-black text-indigo-400 tracking-widest uppercase mb-1">{{ job.employer_name }}</p>
+                            <p class="text-[11px] font-black text-indigo-400 tracking-widest uppercase mb-1">{{
+                                job.employer_name }}</p>
                             <h3
                                 class="font-bold text-xl text-white group-hover:text-indigo-300 transition-colors truncate">
                                 {{ job.job_title }}</h3>
@@ -204,21 +232,18 @@
                         {% if job.job_min_salary %}
                         <div
                             class="flex items-center text-green-400/90 bg-green-400/5 p-3 rounded-2xl border border-green-400/10">
-                            <div class="w-8 h-8 rounded-lg bg-green-400/10 flex items-center justify-center mr-3">
-                                <span class="text-sm font-bold">$</span>
-                            </div>
-                            <span class="text-sm font-bold tracking-tight">
-                                ${{ job.job_min_salary|floatformat:0 }} - ${{ job.job_max_salary|floatformat:0 }} / yr
-                            </span>
+                            <div class="w-8 h-8 rounded-lg bg-green-400/10 flex items-center justify-center mr-3"><span
+                                    class="text-sm font-bold">$</span></div>
+                            <span class="text-sm font-bold tracking-tight">${{ job.job_min_salary|floatformat:0 }} - ${{
+                                job.job_max_salary|floatformat:0 }} / yr</span>
                         </div>
                         {% endif %}
                     </div>
 
                     <div class="border-t border-[#2a2a4a]/50 pt-5 flex gap-4 mt-auto">
                         <a href="{{ job.job_apply_link }}" target="_blank"
-                            class="flex-grow btn-gradient py-3.5 rounded-2xl text-center text-xs font-black uppercase tracking-widest shadow-lg shadow-indigo-600/10 hover:shadow-indigo-600/30">
-                            Apply Now →
-                        </a>
+                            class="flex-grow btn-gradient py-3.5 rounded-2xl text-center text-xs font-black uppercase tracking-widest shadow-lg shadow-indigo-600/10 hover:shadow-indigo-600/30">Apply
+                            Now →</a>
                         <button
                             onclick="saveJob('{{ job.job_id }}', '{{ job.job_title|escapejs }}', '{{ job.employer_name|escapejs }}', '{{ job.job_city|escapejs }}', '{{ job.job_apply_link|escapejs }}', '{{ job.job_publisher|escapejs }}')"
                             class="w-12 h-12 glass rounded-2xl flex items-center justify-center hover:bg-white/5 hover:border-indigo-500 transition-all group/save">
@@ -325,8 +350,7 @@
     function showToast(title, message, type) {
         const container = document.getElementById('toast-container') || createToastContainer();
         const toast = document.createElement('div');
-        toast.className = `toast glass border-l-4 p-4 rounded-lg shadow-2xl animate-fade-in-right ${type === 'success' ? 'border-green-500' : type === 'error' ? 'border-red-500' : 'border-indigo-500'
-            }`;
+        toast.className = `toast glass border-l-4 p-4 rounded-lg shadow-2xl animate-fade-in-right ${type === 'success' ? 'border-green-500' : type === 'error' ? 'border-red-500' : 'border-indigo-500'}`;
         toast.style.minWidth = '300px';
         toast.innerHTML = `
             <div class="flex items-center justify-between gap-4">

@@ -10,8 +10,8 @@
 
         <div class="text-center mb-12 relative">
             <div
-                class="w-20 h-20 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-3xl mx-auto flex items-center justify-center text-3xl shadow-2xl shadow-indigo-600/20 mb-6 group hover:rotate-6 transition-transform">
-                🚀
+                class="w-20 h-20 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-3xl mx-auto flex items-center justify-center shadow-2xl shadow-indigo-600/20 mb-6 group hover:rotate-6 transition-transform">
+                <i data-lucide="zap" class="w-10 h-10 text-white fill-white"></i>
             </div>
             <h1 class="text-2xl font-black text-white uppercase tracking-[0.2em]">Instant <span
                     class="text-gradient">Placement</span></h1>
@@ -34,7 +34,7 @@
                         class="block text-[10px] font-black text-gray-500 uppercase mb-2.5 ml-1 tracking-[0.15em]">Email
                         Address</label>
                     <input type="email" name="login" placeholder="your@email.com" required
-                        class="w-full bg-[#0f0f13]/50 border border-[#2a2a4a] rounded-[24px] py-4.5 px-7 text-white placeholder-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-medium text-sm">
+                        class="w-full bg-[#0f0f13]/50 border border-[#2a2a4a] rounded-[24px] py-3.5 px-7 text-white placeholder-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-medium text-sm">
                 </div>
                 <div>
                     <div class="flex justify-between items-center mb-2.5 ml-1">
@@ -44,10 +44,31 @@
                             class="text-[9px] font-black text-indigo-400 hover:text-white uppercase tracking-widest transition-colors">Forgot
                             Password?</a>
                     </div>
-                    <input type="password" name="password" placeholder="••••••••" required
-                        class="w-full bg-[#0f0f13]/50 border border-[#2a2a4a] rounded-[24px] py-4.5 px-7 text-white placeholder-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-medium text-sm">
+                    <div class="relative">
+                        <input type="password" name="password" id="id_password" placeholder="••••••••" required
+                            class="w-full bg-[#0f0f13]/50 border border-[#2a2a4a] rounded-[24px] py-3.5 pl-7 pr-12 text-white placeholder-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-medium text-sm">
+                        <button type="button" onclick="togglePassword('id_password', this)"
+                            class="absolute right-5 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors">
+                            <i data-lucide="eye" class="w-5 h-5"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
+
+            <script>
+                function togglePassword(inputId, button) {
+                    const input = document.getElementById(inputId);
+                    const icon = button.querySelector('i');
+                    if (input.type === 'password') {
+                        input.type = 'text';
+                        icon.setAttribute('data-lucide', 'eye-off');
+                    } else {
+                        input.type = 'password';
+                        icon.setAttribute('data-lucide', 'eye');
+                    }
+                    lucide.createIcons();
+                }
+            </script>
 
             <button type="submit"
                 class="w-full btn-gradient py-5 rounded-[24px] font-black text-[11px] uppercase tracking-[0.25em] shadow-2xl shadow-indigo-600/30 hover:scale-[1.02] active:scale-95 transition-all text-white">
@@ -55,15 +76,15 @@
             </button>
         </form>
 
-        <div class="mt-10 relative">
+        <!-- <div class="mt-10 relative">
             <div class="absolute inset-0 flex items-center">
                 <div class="w-full border-t border-[#2a2a4a]"></div>
             </div>
             <div class="relative flex justify-center text-[9px] uppercase font-black text-gray-600 tracking-[0.3em]">
                 <span class="bg-[#16162a] px-5">Social Reach</span></div>
-        </div>
+        </div> -->
 
-        <div class="mt-10">
+        <!-- <div class="mt-10">
             <a href="{% url 'google_login' %}"
                 class="w-full bg-white text-gray-900 py-4.5 rounded-[24px] font-black text-[10px] uppercase tracking-[0.1em] flex items-center justify-center gap-4 hover:bg-gray-100 transition-all shadow-xl">
                 <svg class="w-5 h-5" viewBox="0 0 24 24">
@@ -78,7 +99,7 @@
                 </svg>
                 Continue with Google
             </a>
-        </div>
+        </div> -->
 
         <p class="mt-12 text-center text-[10px] font-black text-gray-500 uppercase tracking-[0.25em]">
             New Here? <a href="{% url 'account_signup' %}"

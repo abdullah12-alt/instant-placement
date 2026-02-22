@@ -12,7 +12,7 @@
     <div class="text-center max-w-4xl mx-auto mb-12">
         <div
             class="inline-flex items-center px-4 py-1.5 rounded-full glass border-indigo-500/30 text-xs font-bold text-indigo-400 mb-6 tracking-wide">
-            🚀 Powered by Real-Time Job Data
+            Powered by Real-Time Data
         </div>
         <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-6">
             Find Your Next Job<br>
@@ -27,7 +27,7 @@
     <!-- Floating Search Card -->
     <div
         class="w-full max-w-3xl glass p-8 rounded-[16px] border-indigo-500/20 shadow-2xl shadow-indigo-500/10 relative z-10 transition-all duration-500 hover:shadow-indigo-500/20">
-        <form action="{% url 'search_results' %}" method="get">
+        <form action="{% url 'search_results' %}" method="get" data-show-progress>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <!-- Job Title -->
                 <div class="relative">
@@ -89,11 +89,15 @@
                 <span class="text-sm font-medium text-gray-400 flex items-center">
                     {% if not user.profile.is_pro %}<span class="mr-2 opacity-70">🔒</span>{% endif %}
                     Remote Only
-                    {% if not user.profile.is_pro %}<span class="ml-2 px-1.5 py-0.5 text-[10px] bg-indigo-500/20 text-indigo-400 rounded-md font-bold">PRO</span>{% endif %}
+                    {% if not user.profile.is_pro %}
+                    <span
+                        class="ml-2 px-1.5 py-0.5 text-[10px] bg-indigo-500/20 text-indigo-400 rounded-md font-bold">PRO</span>
+                    {% endif %}
                 </span>
                 <label
-                    class="relative inline-flex items-center {% if not user.profile.is_pro %}cursor-not-allowed opacity-50{% else %}cursor-pointer{% endif %}">
-                    <input type="checkbox" name="remote" value="true" class="sr-only peer" {% if not user.profile.is_pro %}disabled{% endif %}>
+                    class="relative inline-flex items-center {{ user.profile.is_pro|yesno:'cursor-pointer,cursor-not-allowed opacity-50' }}">
+                    <input type="checkbox" name="remote" value="true" class="sr-only peer" {{
+                        user.profile.is_pro|yesno:',disabled' }}>
                     <div
                         class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600">
                     </div>

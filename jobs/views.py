@@ -5,6 +5,11 @@ from .services import JobService
 from .models import SavedJob
 import json
 
+def landing(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+    return render(request, 'landing.html')
+
 def home(request):
     return render(request, 'jobs/home.html')
 
@@ -43,7 +48,12 @@ def search_results(request):
         'location': location,
         'query_k': keywords,
         'query_t': time_filter,
-        'query_remote': remote_only
+        'query_remote': remote_only,
+        't_today': time_filter == 'today',
+        't_week': time_filter == 'week',
+        't_month': time_filter == 'month',
+        't_1h': time_filter == '1h',
+        't_8h': time_filter == '8h',
     }
     return render(request, 'jobs/results.html', context)
 
