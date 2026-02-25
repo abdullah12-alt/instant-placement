@@ -10,12 +10,14 @@ def landing(request):
         return redirect('home')
     return render(request, 'landing.html')
 
+@login_required
 def home(request):
     return render(request, 'jobs/home.html')
 
 def terms_conditions(request):
     return render(request, 'legal/terms.html')
 
+@login_required
 def search_results(request):
     query = request.GET.get('q', '')
     location = request.GET.get('l', '')
